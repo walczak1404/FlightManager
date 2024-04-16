@@ -9,6 +9,7 @@ namespace FlightManager.Core.Domain.Entities
     public class Flight
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid FlightID { get; set; }
 
         //string length 6 because flight number consists of two-character airline designator and a 1 to 4 digit number
