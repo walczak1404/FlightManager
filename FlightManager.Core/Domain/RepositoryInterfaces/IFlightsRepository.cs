@@ -1,5 +1,4 @@
 ﻿using FlightManager.Core.Domain.Entities;
-using FlightManager.Core.DTO;
 using FlightManager.Core.Enums;
 using System.Linq.Expressions;
 

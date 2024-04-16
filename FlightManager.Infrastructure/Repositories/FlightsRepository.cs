@@ -3,14 +3,7 @@ using FlightManager.Core.Domain.Entities;
 using FlightManager.Core.Domain.RepositoryInterfaces;
 using FlightManager.Core.Enums;
 using FlightManager.Infrastructure.DatabaseContext;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FlightManager.Infrastructure.Repositories
 {
@@ -25,8 +18,10 @@ namespace FlightManager.Infrastructure.Repositories
 
         public async Task<PagedList<Flight>> GetFlightsAsync(int pageNumber, Expression<Func<Flight, bool>> filterPredicate, Expression<Func<Flight, bool>> sortPredicate, SortOrder sortOrder)
         {
+            // filter flights
             var flights = _db.Flights.Where(filterPredicate);
 
+            // sort flights based on sort order
             if (sortOrder == SortOrder.ASC)
             {
                 flights = flights.OrderBy(sortPredicate);
@@ -35,6 +30,7 @@ namespace FlightManager.Infrastructure.Repositories
                 flights = flights.OrderByDescending(sortPredicate);
             }
 
+            // return paged list which contains flight, pageNumber, and if there are next or previous page
             return await PagedList<Flight>.CreateAsync(flights, pageNumber);
         }
 
@@ -54,10 +50,13 @@ namespace FlightManager.Infrastructure.Repositories
 
         public async Task<Flight?> PutFlightAsync(Flight flight)
         {
+            // check if flight exists
             Flight? matchingFlight = await _db.Flights.FindAsync(flight.FlightID);
 
+            // return null if flight does not exist
             if (matchingFlight == null) return null;
 
+            // alter flight's properties
             matchingFlight.Number = flight.Number;
             matchingFlight.DepartureDateUTC = flight.DepartureDateUTC;
             matchingFlight.DepartureCity = flight.DepartureCity;
