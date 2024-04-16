@@ -12,19 +12,12 @@ namespace FlightManager.Core.Domain.RepositoryInterfaces
         /// <summary>
         /// Gets nth (based on pageNumber) 10 flights from database filtered and sorted based on parameters
         /// </summary>
-        /// <param name="filter">Filters for departure and arrival cities</param>
-        /// <param name="pageNumber">Describes </param>
-        /// <param name="sortType">Specifies what flights will be sorted by (default is Departure date)</param>
-        /// <param name="sortOrder">Specifies order of sorting (default is ascending)</param>
-        /// <returns>Sorted list of all flights</returns>
-        PagedList<Flight> GetFlights(FlightFilter filter, uint pageNumber = 1, SortType sortType = SortType.DepartureDate, SortOrder sortOrder = SortOrder.ASC);
-
-        /// <summary>
-        /// Gets single flight from database
-        /// </summary>
-        /// <param name="flightID">ID of flight</param>
-        /// <returns>Flight with given id</returns>
-        Flight? GetFlightByID(Guid flightID);
+        /// <param name="predicate">Predicate filtering departure and arrival cities</param>
+        /// <param name="pageNumber">Describes which nth 10 flights will be returned</param>
+        /// <param name="sortType">Specifies what flights will be sorted by</param>
+        /// <param name="sortOrder">Specifies order of sorting</param>
+        /// <returns>Sorted and filtered list of flights</returns>
+        PagedList<Flight> GetFlights(Func<Flight, bool> predicate, uint pageNumber, SortType sortType, SortOrder sortOrder);
 
         /// <summary>
         /// Adds new flight to database
@@ -34,7 +27,7 @@ namespace FlightManager.Core.Domain.RepositoryInterfaces
         Flight PostFlight(Flight flight);
 
         /// <summary>
-        /// Updates flight
+        /// Updates flight in database
         /// </summary>
         /// <param name="flight">Flight object with id of updated flight and its new properties</param>
         /// <returns>Updated flight</returns>
@@ -43,7 +36,7 @@ namespace FlightManager.Core.Domain.RepositoryInterfaces
         /// <summary>
         /// Deletes flight from database
         /// </summary>
-        /// <param name="flightID"></param>
+        /// <param name="flightID">ID of deleted flight</param>
         void DeleteFlight(Guid flightID);
     }
 }

@@ -10,7 +10,7 @@ namespace FlightManager.Core.Domain.RepositoryInterfaces
         /// <summary>
         /// Gets all aircraft types stored in database
         /// </summary>
-        /// <returns></returns>
-        List<AircraftType> GetAircraftTypes();
+        /// <returns>List of aircraft types</returns>
+        List<AircraftType> GetAllAircraftTypes();
     }
 }
