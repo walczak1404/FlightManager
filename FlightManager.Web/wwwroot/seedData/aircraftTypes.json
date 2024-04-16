@@ -1,0 +1,18 @@
+﻿[
+  {
+    "AircraftTypeID": "DD0C5EAA-811A-4EBD-8952-9268C93A20B0",
+    "Name": "Embraer"
+  },
+  {
+    "AircraftTypeID": "FC2B874F-45FD-42B1-9D4A-11E9B1B0413A",
+    "Name": "Boeing"
+  },
+  {
+    "AircraftTypeID": "46754CFE-7DC0-4EBB-A67C-B8970CCEBB9B",
+    "Name": "Airbus"
+  },
+  {
+    "AircraftTypeID": "AC14FD42-9D4C-47B9-A989-4832E3843A0C",
+    "Name": "Bombardier"
+  }
+]
