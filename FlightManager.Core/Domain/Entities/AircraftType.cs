@@ -3,12 +3,12 @@
 namespace FlightManager.Core.Domain.Entities
 {
     /// <summary>
-    /// Aircraft type model for managing database operations
+    /// Aircraft type model used to create database table
     /// </summary>
     public class AircraftType
     {
         [Key]
-        public Guid ID { get; set; }
+        public Guid AircraftTypeID { get; set; }
 
         [StringLength(60)]
         public string? Name { get; set; }

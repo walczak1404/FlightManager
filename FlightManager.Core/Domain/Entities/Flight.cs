@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FlightManager.Core.Domain.Entities
 {
     /// <summary>
-    /// Flight model for managing database operations
+    /// Flight model used to create database table
     /// </summary>
     public class Flight
     {
@@ -21,5 +22,8 @@ namespace FlightManager.Core.Domain.Entities
         public string? ArrivalAirport { get; set; }
 
         public Guid? AircraftTypeID { get; set; }
+
+        [ForeignKey(nameof(AircraftTypeID))]
+        public virtual AircraftType? AircraftType { get; set; }
     }
 }
