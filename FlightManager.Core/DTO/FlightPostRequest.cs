@@ -31,7 +31,7 @@ namespace FlightManager.Core.DTO
 
         public Flight ToFlight()
         {
-            return new Flight
+            return new()
             {
                 Number = Number,
                 DepartureDateUTC = DepartureDateUTC,
