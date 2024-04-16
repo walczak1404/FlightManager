@@ -4,6 +4,7 @@ using FlightManager.Infrastructure.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlightManager.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240416143753_flight-number-type-change")]
+    partial class flightnumbertypechange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -141,11 +144,11 @@ namespace FlightManager.Infrastructure.Migrations
                     b.Property<Guid?>("AircraftTypeID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("ArrivalCity")
+                    b.Property<string>("ArrivalAirport")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("DepartureCity")
+                    b.Property<string>("DepartureAirport")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
