@@ -15,7 +15,7 @@ namespace FlightManager.Core.Domain.Entities
         [StringLength(6)]
         public string? Number { get; set; }
 
-        public DateTime? DepartureDate { get; set; }
+        public DateTime? DepartureDateUTC { get; set; }
 
         [StringLength(100)]
         public string? DepartureCity { get; set; }
