@@ -5,12 +5,12 @@ using FlightManager.Core.Enums;
 namespace FlightManager.Core.Domain.RepositoryInterfaces
 {
     /// <summary>
-    /// FlightsRepository interface for managing flights database operations
+    /// Flights repository interface for managing flights database operations
     /// </summary>
     public interface IFlightsRepository
     {
         /// <summary>
-        /// Gets nth (based on pageNumber) 10 flights from database sorted based on parameters
+        /// Gets nth (based on pageNumber) 10 flights from database filtered and sorted based on parameters
         /// </summary>
         /// <param name="filter">Filters for departure and arrival cities</param>
         /// <param name="pageNumber">Describes </param>
