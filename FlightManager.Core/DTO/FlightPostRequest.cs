@@ -1,4 +1,5 @@
 ﻿using FlightManager.Core.CustomValidation;
+using FlightManager.Core.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
 
 namespace FlightManager.Core.DTO
@@ -27,5 +28,17 @@ namespace FlightManager.Core.DTO
         [Required(ErrorMessage = "Typ samolotu jest wymagany")]
         public Guid? AircraftTypeID { get; set; }
 
+
+        public Flight ToFlight()
+        {
+            return new Flight
+            {
+                Number = Number,
+                DepartureDateUTC = DepartureDateUTC,
+                DepartureCity = DepartureCity,
+                ArrivalCity = ArrivalCity,
+                AircraftTypeID = AircraftTypeID
+            };
+        }
     }
 }

@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FlightManager.Core.DTO
 {
+    /// <summary>
+    /// Flight DTO for updating flights
+    /// </summary>
     public class FlightPutRequest
     {
         [Required(ErrorMessage = "ID lotu jest wymagane")]

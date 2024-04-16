@@ -2,6 +2,9 @@
 
 namespace FlightManager.Core.CustomValidation
 {
+    /// <summary>
+    /// Custom validation for checking if date is not from past
+    /// </summary>
     public class FutureDateValidationAttribute : ValidationAttribute
     {
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)

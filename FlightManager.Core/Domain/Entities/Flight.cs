@@ -11,10 +11,11 @@ namespace FlightManager.Core.Domain.Entities
         [Key]
         public Guid FlightID { get; set; }
 
-        // string length 6 because flight number consists of two-character airline designator and a 1 to 4 digit number
+        //string length 6 because flight number consists of two-character airline designator and a 1 to 4 digit number
         [StringLength(6)]
         public string? Number { get; set; }
 
+        //departure date time should be in UTC time to avoid different timezones problem
         public DateTime? DepartureDateUTC { get; set; }
 
         [StringLength(100)]
