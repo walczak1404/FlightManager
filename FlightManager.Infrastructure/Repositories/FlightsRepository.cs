@@ -1,5 +1,6 @@
 ﻿using FlightManager.Core.Domain.Entities;
 using FlightManager.Core.Domain.RepositoryInterfaces;
+using FlightManager.Core.DTO;
 using FlightManager.Core.Enums;
 using FlightManager.Core.Utilities;
 using FlightManager.Infrastructure.DatabaseContext;
@@ -48,20 +49,17 @@ namespace FlightManager.Infrastructure.Repositories
             return flight;
         }
 
-        public async Task<Flight?> PutFlightAsync(Flight flight)
+        public async Task<Flight> PutFlightAsync(FlightPutRequest updates)
         {
-            // check if flight exists
-            Flight? matchingFlight = await _db.Flights.FindAsync(flight.FlightID);
-
-            // return null if flight does not exist
-            if (matchingFlight == null) return null;
+            // retrieve flight to update (checking its existence is done in service method so it's for sure not null)
+            Flight matchingFlight = await _db.Flights.FindAsync(updates.FlightID);
 
             // alter flight's properties
-            matchingFlight.Number = flight.Number;
-            matchingFlight.DepartureDateUTC = flight.DepartureDateUTC;
-            matchingFlight.DepartureCity = flight.DepartureCity;
-            matchingFlight.ArrivalCity = flight.ArrivalCity;
-            matchingFlight.AircraftTypeID = flight.AircraftTypeID;
+            matchingFlight.Number = updates.Number;
+            matchingFlight.DepartureDateUTC = updates.DepartureDateUTC;
+            matchingFlight.DepartureCity = updates.DepartureCity;
+            matchingFlight.ArrivalCity = updates.ArrivalCity;
+            matchingFlight.AircraftTypeID = updates.AircraftTypeID;
 
             await _db.SaveChangesAsync();
 

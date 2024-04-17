@@ -7,15 +7,15 @@ namespace FlightManager.Core.DTO
     /// </summary>
     public class FlightResponse
     {
-        public Guid FlightID { get; set; }
+        public Guid? FlightID { get; set; }
 
-        public string Number { get; set; }
+        public string? Number { get; set; }
 
-        public DateTime DepartureDateUTC { get; set; }
+        public DateTime? DepartureDateUTC { get; set; }
 
-        public string DepartureCity { get; set; }
+        public string? DepartureCity { get; set; }
 
-        public string ArrivalCity { get; set; }
+        public string? ArrivalCity { get; set; }
 
         public AircraftTypeResponse? AircraftType { get; set; }
     }
@@ -28,7 +28,7 @@ namespace FlightManager.Core.DTO
             {
                 FlightID = flight.FlightID,
                 Number = flight.Number,
-                DepartureDateUTC = flight.DepartureDateUTC.Value,
+                DepartureDateUTC = flight.DepartureDateUTC,
                 DepartureCity = flight.DepartureCity,
                 ArrivalCity = flight.ArrivalCity,
                 AircraftType = flight.AircraftType != null ? flight.AircraftType.ToAircraftTypeResponse() : null

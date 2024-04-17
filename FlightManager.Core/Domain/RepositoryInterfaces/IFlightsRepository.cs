@@ -1,4 +1,5 @@
 ﻿using FlightManager.Core.Domain.Entities;
+using FlightManager.Core.DTO;
 using FlightManager.Core.Enums;
 using FlightManager.Core.Utilities;
 using System.Linq.Expressions;
@@ -39,7 +40,7 @@ namespace FlightManager.Core.Domain.RepositoryInterfaces
         /// </summary>
         /// <param name="flight">Flight object with id of updated flight and its new properties</param>
         /// <returns>Updated flight</returns>
-        Task<Flight?> PutFlightAsync(Flight flight);
+        Task<Flight> PutFlightAsync(FlightPutRequest updates);
 
         /// <summary>
         /// Deletes flight from database

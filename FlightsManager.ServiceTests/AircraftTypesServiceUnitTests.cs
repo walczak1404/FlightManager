@@ -1,6 +1,4 @@
-﻿using FluentAssertions;
-
-namespace FlightsManager.ServiceTests
+﻿namespace FlightsManager.ServiceTests
 {
     public class AircraftTypesServiceUnitTests
     {
@@ -15,10 +13,10 @@ namespace FlightsManager.ServiceTests
             _aircraftTypesService = new AircraftTypesService(_aircraftTypesRepositoryMock.Object);
         }
 
-        #region GetAllAircraftTypes
+        #region GetAllAircraftTypesAsync
 
         [Fact]
-        public async Task GetAllAircraftTypes_ShoultReturnEmptyList_WithNoTypesStored()
+        public async Task GetAllAircraftTypesAsync_ShoultReturnEmptyList_WithNoTypesStored()
         {
             // Arrange
             _aircraftTypesRepositoryMock.Setup(repo => repo.GetAllAircraftTypesAsync()).ReturnsAsync(new List<AircraftType>());
@@ -31,7 +29,7 @@ namespace FlightsManager.ServiceTests
         }
 
         [Fact]
-        public async Task GetAllAircraftTypes_ShouldReturnAllTypes_WithFewTypesStored()
+        public async Task GetAllAircraftTypesAsync_ShouldReturnAllTypes_WithFewTypesStored()
         {
             // Arrange
             List<AircraftType> sampleTypes = new List<AircraftType>()

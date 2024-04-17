@@ -17,26 +17,26 @@ namespace FlightManager.Core.ServiceInterfaces
         /// <param name="sortType">Specifies what flights will be sorted by (default is Departure date)</param>
         /// <param name="sortOrder">Specifies order of sorting (default is ascending)</param>
         /// <returns>Sorted and filtered list of flights as FlightResponse objects</returns>
-        PagedList<FlightResponse> GetFlightsAsync(FlightFilter filter, uint pageNumber = 1, SortType sortType = SortType.DepartureDate, SortOrder sortOrder = SortOrder.ASC);
+        Task<PagedList<FlightResponse>> GetFlightsAsync(FlightFilter filter, int pageNumber = 1, SortType sortType = SortType.DepartureDate, SortOrder sortOrder = SortOrder.ASC);
 
         /// <summary>
         /// Adds new flight
         /// </summary>
         /// <param name="flightPostRequest">Added flight</param>
         /// <returns>Added flight as FlightResponse object</returns>
-        FlightResponse PostFlightAsync(FlightPostRequest flightPostRequest);
+        Task<FlightResponse> PostFlightAsync(FlightPostRequest flightPostRequest);
 
         /// <summary>
         /// Updates flight
         /// </summary>
         /// <param name="flightPutRequest">Flight object with id of updated flight and its new properties</param>
         /// <returns>Updated flight as FlightResponse object</returns>
-        FlightResponse PutFlightAsync(FlightPutRequest flightPutRequest);
+        Task<FlightResponse> PutFlightAsync(FlightPutRequest flightPutRequest);
 
         /// <summary>
         /// Deletes flight
         /// </summary>
         /// <param name="flightID">ID of deleted flight</param>
-        void DeleteFlightAsync(Guid flightID);
+        Task DeleteFlightAsync(Guid flightID);
     }
 }

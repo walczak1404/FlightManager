@@ -5,8 +5,8 @@
     /// </summary>
     public class FlightFilter
     {
-        public string? DepartureCity { get; set; }
+        public string DepartureCity { get; set; } = "";
 
-        public string? ArrivalCity { get; set; }
+        public string ArrivalCity { get; set; } = "";
     }
 }

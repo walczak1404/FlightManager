@@ -22,10 +22,11 @@ namespace FlightManager.Web.StartupExtensions
 
             // add repositories to IoC container
             services.AddScoped<IFlightsRepository, FlightsRepository>();
-            services.AddScoped<IAircraftTypesRepository, IAircraftTypesRepository>();
+            services.AddScoped<IAircraftTypesRepository, AircraftTypesRepository>();
 
             // add services to IoC container
             services.AddScoped<IAircraftTypesService, AircraftTypesService>();
+            services.AddScoped<IFlightsService, FlightsService>();
 
             return services;
         }
