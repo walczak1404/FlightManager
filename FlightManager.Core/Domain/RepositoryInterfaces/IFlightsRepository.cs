@@ -1,5 +1,6 @@
 ﻿using FlightManager.Core.Domain.Entities;
 using FlightManager.Core.Enums;
+using FlightManager.Core.Utilities;
 using System.Linq.Expressions;
 
 namespace FlightManager.Core.Domain.RepositoryInterfaces

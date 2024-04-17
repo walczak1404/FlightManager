@@ -14,7 +14,7 @@ namespace FlightManager.Infrastructure.Repositories
             _db = db;
         }
 
-        public async Task<List<AircraftType>> GetAllAircraftTypes()
+        public async Task<List<AircraftType>> GetAllAircraftTypesAsync()
         {
             List<AircraftType> aircraftTypes = await _db.AircraftTypes.ToListAsync();
             return aircraftTypes;

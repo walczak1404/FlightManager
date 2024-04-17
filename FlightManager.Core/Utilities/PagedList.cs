@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace FlightManager.Core
+namespace FlightManager.Core.Utilities
 {
     /// <summary>
     /// Custom list implementation to implement pagination

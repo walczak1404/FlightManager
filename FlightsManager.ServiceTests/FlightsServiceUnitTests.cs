@@ -1,11 +1,6 @@
-using AutoFixture;
-using FlightManager.Core.Domain.RepositoryInterfaces;
-using FlightManager.Core.ServiceInterfaces;
-using Moq;
-
 namespace FlightsManager.ServiceTests
 {
-    public class FlightsServiceTests
+    public class FlightsServiceUnitTests
     {
         private readonly IFlightsService _flightsService;
 
@@ -14,7 +9,7 @@ namespace FlightsManager.ServiceTests
 
         private readonly IFixture _fixture;
 
-        public FlightsServiceTests()
+        public FlightsServiceUnitTests()
         {
             _fixture = new Fixture();
             _flightsRepositoryMock = new Mock<IFlightsRepository>();

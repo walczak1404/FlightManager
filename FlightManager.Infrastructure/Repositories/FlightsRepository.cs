@@ -1,7 +1,7 @@
-﻿using FlightManager.Core;
-using FlightManager.Core.Domain.Entities;
+﻿using FlightManager.Core.Domain.Entities;
 using FlightManager.Core.Domain.RepositoryInterfaces;
 using FlightManager.Core.Enums;
+using FlightManager.Core.Utilities;
 using FlightManager.Infrastructure.DatabaseContext;
 using System.Linq.Expressions;
 

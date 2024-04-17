@@ -11,6 +11,6 @@ namespace FlightManager.Core.ServiceInterfaces
         /// Gets all aircraft types
         /// </summary>
         /// <returns>List of aircraft types as AircraftTypeResponse objects</returns>
-        List<AircraftTypeResponse> GetAllAircraftTypes();
+        Task<List<AircraftTypeResponse>> GetAllAircraftTypesAsync();
     }
 }
