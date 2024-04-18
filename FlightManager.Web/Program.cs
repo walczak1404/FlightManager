@@ -8,10 +8,17 @@ builder.Services.ConfigureServices(builder.Configuration);
 
 var app = builder.Build();
 
-// Configure the request pipeline.
-
+app.UseHsts();
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 
+app.UseSwagger();
+app.UseSwaggerUI();
+
+app.UseRouting();
+app.UseCors();
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
