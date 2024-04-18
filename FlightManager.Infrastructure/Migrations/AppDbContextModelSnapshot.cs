@@ -138,7 +138,7 @@ namespace FlightManager.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("NEWSEQUENTIALID()");
 
-                    b.Property<Guid?>("AircraftTypeID")
+                    b.Property<Guid>("AircraftTypeID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ArrivalCity")
@@ -149,7 +149,7 @@ namespace FlightManager.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<DateTime?>("DepartureDateUTC")
+                    b.Property<DateTime>("DepartureDateUTC")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Number")
@@ -231,7 +231,9 @@ namespace FlightManager.Infrastructure.Migrations
                 {
                     b.HasOne("FlightManager.Core.Domain.Entities.AircraftType", "AircraftType")
                         .WithMany()
-                        .HasForeignKey("AircraftTypeID");
+                        .HasForeignKey("AircraftTypeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("AircraftType");
                 });

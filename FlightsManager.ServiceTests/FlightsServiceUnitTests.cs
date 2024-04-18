@@ -1,4 +1,8 @@
 using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
+using FlightManager.Core.Enums;
+using FlightManager.Core.Utilities;
+
 
 namespace FlightsManager.ServiceTests
 {
@@ -17,10 +21,74 @@ namespace FlightsManager.ServiceTests
 
         #region GetFlightsAsync
 
-        public async Task GetFligtsAsync_ShouldReturnArgumentException_WhenPageNumberIsLowerThanOne()
+        [Fact]
+        public async Task GetFligtsAsync_ShouldThrowArgumentNullException_WhenOneOfParametersIsNull()
         {
-            // Assert
+            // Act
+            Func<Task> action = async () =>
+            {
+                await _flightsService.GetFlightsAsync(null, null, null, null);
+            };
 
+            // Assert
+            await action.Should().ThrowAsync<ArgumentNullException>();
+        }
+
+        [Fact]
+        public async Task GetFligtsAsync_ShouldThrowArgumentException_WhenPageNumberIsLowerThanOne()
+        {
+            // Arrange
+            int invalidPageNumberZero = 0;
+            int invalidPageNumberNegative = -3;
+
+            // Act
+            Func<Task> actionZero = async () =>
+            {
+                await _flightsService.GetFlightsAsync(invalidPageNumberZero);
+            };
+
+            Func<Task> actionNegative = async () =>
+            {
+                await _flightsService.GetFlightsAsync(invalidPageNumberNegative);
+            };
+
+            // Assert
+            await actionZero.Should().ThrowAsync<ArgumentException>();
+            await actionNegative.Should().ThrowAsync<ArgumentException>();
+        }
+
+        [Fact]
+        public async Task GetFligtsAsync_ShouldReturnFlights_WhenCorrectParametersAreGiven()
+        {
+            // Arrange
+            int pageNumber = 1;
+
+            List<Flight> sampleFlights = new List<Flight>();
+
+            for (int i = 0; i < 17; i++)
+            {
+                sampleFlights.Add(
+                    _fixture.Build<Flight>()
+                    .With(f => f.Number, $"LO12{i}")
+                    .With(f => f.DepartureDateUTC, DateTime.UtcNow.AddDays(i+1))
+                    .With(f => f.DepartureCity, $"Warszawa{i}")
+                    .With(f => f.ArrivalCity, $"Nowy Jork{16-i}")
+                    .Create()
+                );
+            }
+
+            PagedList<Flight> sampleFlightsPagedList = new PagedList<Flight>(sampleFlights, 1, 2);
+            PagedList<FlightResponse> sampleResponsesPagedList = new PagedList<FlightResponse>(sampleFlights.Select(f => f.ToFlightResponse()).ToList(), pageNumber, sampleFlightsPagedList.TotalPagesCount);
+
+            
+            _flightsRepositoryMock.Setup(repo => repo.GetFlightsAsync(pageNumber, It.IsAny<Expression<Func<Flight, bool>>>(), It.IsAny<Expression<Func<Flight, object>>>(), SortOrder.ASC)).ReturnsAsync(sampleFlightsPagedList);
+
+            // Act
+            PagedList<FlightResponse> retrievedResponse = await _flightsService.GetFlightsAsync(pageNumber, SortType.DepartureDateUTC, SortOrder.ASC);
+
+
+            // Assert
+            retrievedResponse.Should().BeEquivalentTo(sampleResponsesPagedList);
         }
 
         #endregion
@@ -177,6 +245,7 @@ namespace FlightsManager.ServiceTests
                 await _flightsService.PutFlightAsync(sampleFlightPutRequest);
             };
 
+            // Assert
             await action.Should().ThrowAsync<ArgumentException>();
         }
 
@@ -194,7 +263,7 @@ namespace FlightsManager.ServiceTests
             Flight sampleFlight = sampleFlightPutRequest.ToFlight();
             FlightResponse sampleFlightResponse = sampleFlight.ToFlightResponse();
 
-            _flightsRepositoryMock.Setup(repo => repo.GetFlightByIDAsync(sampleFlight.FlightID!.Value)).ReturnsAsync(sampleFlight);
+            _flightsRepositoryMock.Setup(repo => repo.GetFlightByIDAsync(sampleFlight.FlightID)).ReturnsAsync(sampleFlight); //HERE
             _flightsRepositoryMock.Setup(repo => repo.PutFlightAsync(sampleFlightPutRequest)).ReturnsAsync(sampleFlight);
 
             // Act
@@ -207,6 +276,19 @@ namespace FlightsManager.ServiceTests
         #endregion
 
         #region DeleteFlightAsync
+
+        [Fact]
+        public async Task DeleteFlightAsync_ShouldThrowArgumentNullException_WhenNullIDIsGiven()
+        {
+            // Act
+            Func<Task> action = async () =>
+            {
+                await _flightsService.DeleteFlightAsync(null);
+            };
+
+            // Assert
+            await action.Should().ThrowAsync<ArgumentNullException>();
+        }
 
         [Fact]
         public async Task DeleteFlightAsync_ShouldThrowArgumentException_WhenIDOfNonexistentFlightIsGiven()
@@ -225,7 +307,7 @@ namespace FlightsManager.ServiceTests
         }
 
         [Fact]
-        public async Task DeleteFlightAsync_ShouldNotThrowException_WhenExistingFlightIDIsGiven()
+        public async Task DeleteFlightAsync_ShouldNotThrowException_WhenFlightIsDeleted()
         {
             // Arrange
             Flight sampleFlight = _fixture.Create<Flight>();
@@ -235,7 +317,7 @@ namespace FlightsManager.ServiceTests
             // Act
             Func<Task> action = async () =>
             {
-                await _flightsService.DeleteFlightAsync(sampleFlight.FlightID!.Value);
+                await _flightsService.DeleteFlightAsync(sampleFlight.FlightID); //HERE
             };
 
             // Assert

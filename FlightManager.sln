@@ -9,7 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlightManager.Core", "Fligh
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlightManager.Infrastructure", "FlightManager.Infrastructure\FlightManager.Infrastructure.csproj", "{850D1EDC-9D12-409B-BBE3-F3BFF23A6440}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlightsManager.ServiceTests", "FlightsManager.ServiceTests\FlightsManager.ServiceTests.csproj", "{9290BD73-E617-4468-AD25-90B1E4E39988}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlightsManager.ServiceTests", "FlightsManager.ServiceTests\FlightsManager.ServiceTests.csproj", "{9290BD73-E617-4468-AD25-90B1E4E39988}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B0728E86-E6FE-4E76-93F9-17ED1DA3B22C}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

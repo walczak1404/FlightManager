@@ -4,6 +4,7 @@ using FlightManager.Core.DTO;
 using FlightManager.Core.Enums;
 using FlightManager.Core.Utilities;
 using FlightManager.Infrastructure.DatabaseContext;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace FlightManager.Infrastructure.Repositories
@@ -17,10 +18,10 @@ namespace FlightManager.Infrastructure.Repositories
             _db = db;
         }
 
-        public async Task<PagedList<Flight>> GetFlightsAsync(int pageNumber, Expression<Func<Flight, bool>> filterPredicate, Expression<Func<Flight, bool>> sortPredicate, SortOrder sortOrder)
+        public async Task<PagedList<Flight>> GetFlightsAsync(int pageNumber, Expression<Func<Flight, bool>> filterPredicate, Expression<Func<Flight, object>> sortPredicate, SortOrder sortOrder)
         {
             // filter flights
-            var flights = _db.Flights.Where(filterPredicate);
+            var flights = _db.Flights.Include(f => f.AircraftType).Where(filterPredicate);
 
             // sort flights based on sort order
             if (sortOrder == SortOrder.ASC)
@@ -51,8 +52,13 @@ namespace FlightManager.Infrastructure.Repositories
 
         public async Task<Flight> PutFlightAsync(FlightPutRequest updates)
         {
-            // retrieve flight to update (checking its existence is done in service method so it's for sure not null)
-            Flight matchingFlight = await _db.Flights.FindAsync(updates.FlightID);
+            // retrieve flight to update
+            Flight? matchingFlight = await _db.Flights.FindAsync(updates.FlightID);
+
+            if(matchingFlight == null)
+            {
+                throw new ArgumentException("Nie znaleziono lotu");
+            }
 
             // alter flight's properties
             matchingFlight.Number = updates.Number;

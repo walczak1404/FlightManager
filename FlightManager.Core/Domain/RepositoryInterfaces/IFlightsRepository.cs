@@ -19,7 +19,7 @@ namespace FlightManager.Core.Domain.RepositoryInterfaces
         /// <param name="sortPredicate">Predicate to sort flights</param>
         /// <param name="sortOrder">Defines in what order should flights be sorted</param>
         /// <returns>Sorted and filtered list of flights</returns>
-        Task<PagedList<Flight>> GetFlightsAsync(int pageNumber, Expression<Func<Flight, bool>> filterPredicate, Expression<Func<Flight, bool>> sortPredicate, SortOrder sortOrder);
+        Task<PagedList<Flight>> GetFlightsAsync(int pageNumber, Expression<Func<Flight, bool>> filterPredicate, Expression<Func<Flight, object>> sortPredicate, SortOrder sortOrder);
 
         /// <summary>
         /// Gets single flight from database

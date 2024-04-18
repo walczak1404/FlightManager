@@ -12,10 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlightManager.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240416133834_init")]
-#pragma warning disable CS8981 // The type name only contains lower-cased ascii characters. Such names may become reserved for the language.
-    partial class init
-#pragma warning restore CS8981 // The type name only contains lower-cased ascii characters. Such names may become reserved for the language.
+    [Migration("20240418143109_Change-Nulls")]
+    partial class ChangeNulls
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -143,22 +141,23 @@ namespace FlightManager.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("NEWSEQUENTIALID()");
 
-                    b.Property<Guid?>("AircraftTypeID")
+                    b.Property<Guid>("AircraftTypeID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("ArrivalAirport")
+                    b.Property<string>("ArrivalCity")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("DepartureAirport")
+                    b.Property<string>("DepartureCity")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<DateTime?>("DepartureDate")
+                    b.Property<DateTime>("DepartureDateUTC")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("Number")
-                        .HasColumnType("int");
+                    b.Property<string>("Number")
+                        .HasMaxLength(6)
+                        .HasColumnType("nvarchar(6)");
 
                     b.HasKey("FlightID");
 
@@ -235,7 +234,9 @@ namespace FlightManager.Infrastructure.Migrations
                 {
                     b.HasOne("FlightManager.Core.Domain.Entities.AircraftType", "AircraftType")
                         .WithMany()
-                        .HasForeignKey("AircraftTypeID");
+                        .HasForeignKey("AircraftTypeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("AircraftType");
                 });

@@ -9,7 +9,7 @@ namespace FlightManager.Core.DTO
     {
         public Guid AircraftTypeID { get; set; }
 
-        public string Name { get; set; }
+        public string? Name { get; set; }
     }
 
     public static class AircraftTypeExtensions

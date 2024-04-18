@@ -8,7 +8,7 @@ namespace FlightManager.Core.Enums
 {
     public enum SortType
     {
-        DepartureDate,
+        DepartureDateUTC,
         DepartureCity,
         ArrivalCity,
         AircraftType

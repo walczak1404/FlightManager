@@ -10,7 +10,7 @@ namespace FlightManager.Core.DTO
     public class FlightPutRequest
     {
         [Required(ErrorMessage = "ID lotu jest wymagane")]
-        public Guid? FlightID { get; set; }
+        public Guid FlightID { get; set; }
 
         [Required(ErrorMessage = "Numer lotu jest wymagany")]
         [RegularExpression(@"^[a-zA-Z]{2}\d{1,4}$", ErrorMessage = "Numer lotu musi składać się z 2 liter reprezentujących linię oraz od 1 do 4 cyfr")]
@@ -18,7 +18,7 @@ namespace FlightManager.Core.DTO
 
         [Required(ErrorMessage = "Data wylotu jest wymagana")]
         [FutureDateValidation]
-        public DateTime? DepartureDateUTC { get; set; }
+        public DateTime DepartureDateUTC { get; set; }
 
         [Required(ErrorMessage = "Miejsce wylotu jest wymagane")]
         [StringLength(100, ErrorMessage = "Miejsce wylotu może składać się maksymalnie ze 100 znaków")]
@@ -29,13 +29,13 @@ namespace FlightManager.Core.DTO
         public string? ArrivalCity { get; set; }
 
         [Required(ErrorMessage = "Typ samolotu jest wymagany")]
-        public Guid? AircraftTypeID { get; set; }
+        public Guid AircraftTypeID { get; set; }
 
         public Flight ToFlight()
         {
             return new()
             {
-                FlightID = FlightID.Value,
+                FlightID = FlightID,
                 Number = Number,
                 DepartureDateUTC = DepartureDateUTC,
                 DepartureCity = DepartureCity,

@@ -4,7 +4,7 @@ namespace FlightManager.Core.Services.Helpers
 {
     internal class Validation
     {
-        internal static void Validate(object obj)
+        internal static void Validate(object? obj)
         {
             if (obj == null) throw new ArgumentNullException(nameof(obj));
 
