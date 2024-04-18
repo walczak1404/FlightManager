@@ -19,7 +19,14 @@ namespace FlightManager.Core.Services
             _configuration = configuration;
         }
 
-
+        //Creates a refresh token (base 64 string of random numbers)
+        private string GenerateRefreshToken()
+        {
+            byte[] bytes = new byte[64];
+            var randomNumberGenerator = RandomNumberGenerator.Create();
+            randomNumberGenerator.GetBytes(bytes);
+            return Convert.ToBase64String(bytes);
+        }
 
         public AuthenticationResponse CreateJwtToken(AppUser user)
         {
@@ -30,10 +37,12 @@ namespace FlightManager.Core.Services
             Claim[] claims = new Claim[] {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()), //Subject (user id)
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()), //JWT unique ID
-                new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()), //Issued at (date and time of token generation)
+                new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString()), //Issued at (date and time of token generation)
                 new Claim(ClaimTypes.NameIdentifier, user.Email), //Unique name identifier of the user (Email)
+                new Claim(ClaimTypes.Name, user.Email),
                 new Claim(ClaimTypes.Email, user.Email) //Name of the user
-             };
+                
+            };
 
             // Create a SymmetricSecurityKey object using the key specified in the configuration.
             SymmetricSecurityKey securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
@@ -59,7 +68,9 @@ namespace FlightManager.Core.Services
             {
                 Token = token,
                 Email = user.Email,
-                ExpirationTimeUTC = expiration
+                ExpirationDateTimeUTC = expiration,
+                RefreshToken = GenerateRefreshToken(),
+                RefreshTokenExpirationDateTimeUTC = DateTime.Now.AddMinutes(Convert.ToInt32(_configuration["RefreshToken:EXPIRATION_MINUTES"]))
             };
         }
 

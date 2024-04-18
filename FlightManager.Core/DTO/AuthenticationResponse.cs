@@ -6,6 +6,10 @@
 
         public string? Token { get; set; }
 
-        public DateTime ExpirationTimeUTC { get; set; }
+        public DateTime ExpirationDateTimeUTC { get; set; }
+
+        public string? RefreshToken { get; set; }
+
+        public DateTime RefreshTokenExpirationDateTimeUTC { get; set; }
     }
 }

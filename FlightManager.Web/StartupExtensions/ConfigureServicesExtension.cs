@@ -81,6 +81,7 @@ namespace FlightManager.Web.StartupExtensions
                      ValidateIssuer = true,
                      ValidIssuer = configuration["Jwt:Issuer"],
                      ValidateLifetime = true,
+                     ClockSkew = TimeSpan.Zero,
                      ValidateIssuerSigningKey = true,
                      IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(configuration["Jwt:Key"]))
                  };

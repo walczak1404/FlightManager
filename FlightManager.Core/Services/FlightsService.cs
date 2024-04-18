@@ -12,10 +12,12 @@ namespace FlightManager.Core.Services
     public class FlightsService : IFlightsService
     {
         private readonly IFlightsRepository _flightsRepository;
+        private readonly IAircraftTypesRepository _aircraftTypesRepository;
 
-        public FlightsService(IFlightsRepository flightsRepository)
+        public FlightsService(IFlightsRepository flightsRepository, IAircraftTypesRepository aircraftTypesRepository)
         {
             _flightsRepository = flightsRepository;
+            _aircraftTypesRepository = aircraftTypesRepository;
         }
 
         public async Task<PagedList<FlightResponse>> GetFlightsAsync(int? pageNumber = 1, SortType? sortType = SortType.DepartureDateUTC, SortOrder? sortOrder = SortOrder.ASC, string? departureCity = "", string? arrivalCity = "")
@@ -46,6 +48,10 @@ namespace FlightManager.Core.Services
         {
             Validation.Validate(flightPostRequest);
 
+            AircraftType? aircraftType = await _aircraftTypesRepository.GetAircraftTypeByIDAsync(flightPostRequest!.AircraftTypeID);
+
+            if(aircraftType == null) throw new ArgumentException("Nie znaleziono takiego typu samolotu");
+
             Flight addedFlight = await _flightsRepository.PostFlightAsync(flightPostRequest!.ToFlight()); // flight is validated for null in Validation.Validate(flightPostRequest)
 
             return addedFlight.ToFlightResponse();
@@ -58,6 +64,10 @@ namespace FlightManager.Core.Services
             Flight? flightFromDatabase = await _flightsRepository.GetFlightByIDAsync(flightPutRequest!.FlightID); // flight is validated for null in Validation.Validate(flightPutRequest)
 
             if (flightFromDatabase == null) throw new ArgumentException("Nie znaleziono takiego lotu");
+
+            AircraftType? aircraftType = await _aircraftTypesRepository.GetAircraftTypeByIDAsync(flightPutRequest.AircraftTypeID);
+
+            if (aircraftType == null) throw new ArgumentException("Nie znaleziono takiego typu samolotu");
 
             Flight updatedFlight = await _flightsRepository.PutFlightAsync(flightPutRequest);
 

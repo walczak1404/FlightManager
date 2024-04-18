@@ -12,5 +12,7 @@ namespace FlightManager.Core.Domain.RepositoryInterfaces
         /// </summary>
         /// <returns>List of aircraft types</returns>
         Task<List<AircraftType>> GetAllAircraftTypesAsync();
+
+        Task<AircraftType?> GetAircraftTypeByIDAsync(Guid aircraftTypeID);
     }
 }
