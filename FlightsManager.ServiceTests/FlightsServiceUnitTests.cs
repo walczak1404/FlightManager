@@ -10,13 +10,15 @@ namespace FlightsManager.ServiceTests
     {
         private readonly IFlightsService _flightsService;
         private readonly Mock<IFlightsRepository> _flightsRepositoryMock;
+        private readonly Mock<IAircraftTypesRepository> _aircraftTypesRepositoryMock;
         private readonly IFixture _fixture;
 
         public FlightsServiceUnitTests()
         {
             _fixture = new Fixture();
             _flightsRepositoryMock = new Mock<IFlightsRepository>();
-            _flightsService = new FlightsService(_flightsRepositoryMock.Object);
+            _aircraftTypesRepositoryMock = new Mock<IAircraftTypesRepository>();
+            _flightsService = new FlightsService(_flightsRepositoryMock.Object, _aircraftTypesRepositoryMock.Object);
         }
 
         #region GetFlightsAsync
@@ -161,6 +163,9 @@ namespace FlightsManager.ServiceTests
 
             FlightResponse sampleFlightResponse = sampleFlight.ToFlightResponse();
 
+            AircraftType sampleAircraftType = _fixture.Create<AircraftType>();
+
+            _aircraftTypesRepositoryMock.Setup(repo => repo.GetAircraftTypeByIDAsync(It.IsAny<Guid>())).ReturnsAsync(sampleAircraftType);
             _flightsRepositoryMock.Setup(repo => repo.PostFlightAsync(It.IsAny<Flight>())).ReturnsAsync(sampleFlight);
 
             // Act
@@ -263,7 +268,10 @@ namespace FlightsManager.ServiceTests
             Flight sampleFlight = sampleFlightPutRequest.ToFlight();
             FlightResponse sampleFlightResponse = sampleFlight.ToFlightResponse();
 
-            _flightsRepositoryMock.Setup(repo => repo.GetFlightByIDAsync(sampleFlight.FlightID)).ReturnsAsync(sampleFlight); //HERE
+            AircraftType sampleAircraftType = _fixture.Create<AircraftType>();
+            _aircraftTypesRepositoryMock.Setup(repo => repo.GetAircraftTypeByIDAsync(It.IsAny<Guid>())).ReturnsAsync(sampleAircraftType);
+
+            _flightsRepositoryMock.Setup(repo => repo.GetFlightByIDAsync(sampleFlight.FlightID)).ReturnsAsync(sampleFlight);
             _flightsRepositoryMock.Setup(repo => repo.PutFlightAsync(sampleFlightPutRequest)).ReturnsAsync(sampleFlight);
 
             // Act
