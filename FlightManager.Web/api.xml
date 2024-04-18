@@ -4,5 +4,10 @@
         <name>FlightManager.Web</name>
     </assembly>
     <members>
+        <member name="T:FlightManager.Web.StartupExtensions.ConfigureServicesExtension">
+            <summary>
+            builder.services configuration
+            </summary>
+        </member>
     </members>
 </doc>

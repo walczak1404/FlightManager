@@ -25,4 +25,8 @@
     <ProjectReference Include="..\FlightManager.Infrastructure\FlightManager.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>

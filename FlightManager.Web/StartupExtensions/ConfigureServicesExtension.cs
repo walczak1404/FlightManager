@@ -13,6 +13,9 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace FlightManager.Web.StartupExtensions
 {
+    /// <summary>
+    /// builder.services configuration
+    /// </summary>
     public static class ConfigureServicesExtension
     {
         public static IServiceCollection ConfigureServices(this IServiceCollection services, IConfiguration configuration)
@@ -63,24 +66,25 @@ namespace FlightManager.Web.StartupExtensions
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddUserStore<UserStore<AppUser, IdentityRole<Guid>, AppDbContext, Guid>>();
 
-            //JWT
-            //services.AddAuthentication(options => {
-            //    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
 
-            //    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //})
-            // .AddJwtBearer(options => {
-            //     options.TokenValidationParameters = new TokenValidationParameters()
-            //     {
-            //         ValidateAudience = true,
-            //         ValidAudience = configuration["Jwt:Audience"],
-            //         ValidateIssuer = true,
-            //         ValidIssuer = configuration["Jwt:Issuer"],
-            //         ValidateLifetime = true,
-            //         ValidateIssuerSigningKey = true,
-            //         IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(configuration["Jwt:Key"]))
-            //     };
-            // });
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+             .AddJwtBearer(options =>
+             {
+                 options.TokenValidationParameters = new TokenValidationParameters()
+                 {
+                     ValidateAudience = true,
+                     ValidAudience = configuration["Jwt:Audience"],
+                     ValidateIssuer = true,
+                     ValidIssuer = configuration["Jwt:Issuer"],
+                     ValidateLifetime = true,
+                     ValidateIssuerSigningKey = true,
+                     IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(configuration["Jwt:Key"]))
+                 };
+             });
 
             services.AddAuthorization();
 
@@ -89,7 +93,7 @@ namespace FlightManager.Web.StartupExtensions
             services.AddScoped<IAircraftTypesRepository, AircraftTypesRepository>();
 
             // add services
-            //services.AddScoped<> JWTSERVICE
+            services.AddTransient<IJwtTokenService, JwtTokenService>();
             services.AddScoped<IAircraftTypesService, AircraftTypesService>();
             services.AddScoped<IFlightsService, FlightsService>();
 
