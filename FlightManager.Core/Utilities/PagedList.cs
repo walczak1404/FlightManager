@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace FlightManager.Core
+namespace FlightManager.Core.Utilities
 {
     /// <summary>
     /// Custom list implementation to implement pagination
@@ -20,10 +20,6 @@ namespace FlightManager.Core
         public int Page { get; }
 
         public int TotalPagesCount { get; }
-
-        public bool HasNextPage => Page * 10 < TotalPagesCount;
-
-        public bool HasPreviousPage => Page > 1;
 
         public static async Task<PagedList<T>> CreateAsync(IQueryable<T> query, int page)
         {

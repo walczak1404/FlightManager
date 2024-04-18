@@ -1,4 +1,5 @@
 ﻿using FlightManager.Core.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.Metrics;
@@ -8,7 +9,7 @@ namespace FlightManager.Infrastructure.DatabaseContext
     /// <summary>
     /// Custom DbContext for application
     /// </summary>
-    public class AppDbContext : IdentityUserContext<AppUser, Guid>
+    public class AppDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>
     {
         // creating Flights table based on Flight model class
         public virtual DbSet<Flight> Flights { get; set; }

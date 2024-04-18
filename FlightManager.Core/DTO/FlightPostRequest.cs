@@ -15,7 +15,7 @@ namespace FlightManager.Core.DTO
 
         [Required(ErrorMessage = "Data wylotu jest wymagana")]
         [FutureDateValidation]
-        public DateTime? DepartureDateUTC { get; set; }
+        public DateTime DepartureDateUTC { get; set; }
 
         [Required(ErrorMessage = "Miejsce wylotu jest wymagane")]
         [StringLength(100, ErrorMessage = "Miejsce wylotu może składać się maksymalnie ze 100 znaków")]
@@ -26,7 +26,7 @@ namespace FlightManager.Core.DTO
         public string? ArrivalCity { get; set; }
 
         [Required(ErrorMessage = "Typ samolotu jest wymagany")]
-        public Guid? AircraftTypeID { get; set; }
+        public Guid AircraftTypeID { get; set; }
 
 
         public Flight ToFlight()

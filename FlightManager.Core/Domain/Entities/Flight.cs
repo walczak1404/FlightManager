@@ -9,6 +9,7 @@ namespace FlightManager.Core.Domain.Entities
     public class Flight
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid FlightID { get; set; }
 
         //string length 6 because flight number consists of two-character airline designator and a 1 to 4 digit number
@@ -16,7 +17,7 @@ namespace FlightManager.Core.Domain.Entities
         public string? Number { get; set; }
 
         //departure date time should be in UTC time to avoid different timezones problem
-        public DateTime? DepartureDateUTC { get; set; }
+        public DateTime DepartureDateUTC { get; set; }
 
         [StringLength(100)]
         public string? DepartureCity { get; set; }
@@ -24,7 +25,7 @@ namespace FlightManager.Core.Domain.Entities
         [StringLength(100)]
         public string? ArrivalCity { get; set; }
 
-        public Guid? AircraftTypeID { get; set; }
+        public Guid AircraftTypeID { get; set; }
 
         [ForeignKey(nameof(AircraftTypeID))]
         public virtual AircraftType? AircraftType { get; set; }

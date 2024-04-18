@@ -11,6 +11,6 @@ namespace FlightManager.Core.Domain.RepositoryInterfaces
         /// Gets all aircraft types stored in database
         /// </summary>
         /// <returns>List of aircraft types</returns>
-        List<AircraftType> GetAllAircraftTypes();
+        Task<List<AircraftType>> GetAllAircraftTypesAsync();
     }
 }
