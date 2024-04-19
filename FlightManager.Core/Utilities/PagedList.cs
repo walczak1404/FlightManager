@@ -23,7 +23,8 @@ namespace FlightManager.Core.Utilities
 
         public static async Task<PagedList<T>> CreateAsync(IQueryable<T> query, int page)
         {
-            var totalPagesCount = await query.CountAsync() / 10;
+            var totalItems = await query.CountAsync();
+            var totalPagesCount = (int)Math.Ceiling((double)totalItems / 10);
             var items = await query.Skip((page - 1) * 10).Take(10).ToListAsync();
 
             return new(items, page, totalPagesCount);

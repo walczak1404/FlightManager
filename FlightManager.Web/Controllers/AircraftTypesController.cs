@@ -22,7 +22,6 @@ namespace FlightManager.Web.Controllers
         /// </summary>
         /// <returns>List of stored types</returns>
         [HttpGet]
-        [Authorize]
         public async Task<List<AircraftTypeResponse>> GetAircraftTypes()
         {
             List<AircraftTypeResponse> aircraftTypeResponses = await _aircraftTypesService.GetAllAircraftTypesAsync();

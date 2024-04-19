@@ -24,7 +24,7 @@ namespace FlightManager.Core.Services
         {
             if (pageNumber == null || sortType == null || sortOrder == null || departureCity == null || arrivalCity == null) throw new ArgumentNullException("Jeden z podanych parametrów jest pusty");
 
-            if (pageNumber < 1) throw new ArgumentOutOfRangeException("Numer strony nie może być mniejszy niż 1");
+            if (pageNumber < 1) throw new ArgumentOutOfRangeException(message: "Numer strony nie może być mniejszy niż 1", null);
 
             Expression<Func<Flight, bool>> filterPredicate = f => f.DepartureCity!.Contains(departureCity) && f.ArrivalCity!.Contains(arrivalCity);
 
@@ -76,7 +76,7 @@ namespace FlightManager.Core.Services
 
         public async Task DeleteFlightAsync(Guid? flightID)
         {
-            if (flightID == null) throw new ArgumentNullException("Nie podano ID lotu");
+            if (flightID == null) throw new ArgumentNullException(message: "Nie podano ID lotu", null);
 
             Flight? flightFromID = await _flightsRepository.GetFlightByIDAsync(flightID.Value);
 

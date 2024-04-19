@@ -54,6 +54,19 @@
             <param name="flightPostRequest">Flight to add</param>
             <returns>Added flight</returns>
         </member>
+        <member name="M:FlightManager.Web.Controllers.FlightsController.PutFlight(FlightManager.Core.DTO.FlightPutRequest)">
+            <summary>
+            Updates flight
+            </summary>
+            <param name="flightPutRequest">Flight with its id and new properties</param>
+            <returns>Updated flight</returns>
+        </member>
+        <member name="M:FlightManager.Web.Controllers.FlightsController.DeleteFlight(System.Nullable{System.Guid})">
+            <summary>
+            Deletes flight
+            </summary>
+            <param name="flightID">ID of deleted flight</param>
+        </member>
         <member name="T:FlightManager.Web.StartupExtensions.ConfigureServicesExtension">
             <summary>
             builder.services configuration
