@@ -10,7 +10,7 @@ namespace FlightManager.Core.DTO
     public class FlightPostRequest
     {
         [Required(ErrorMessage = "Numer lotu jest wymagany")]
-        [RegularExpression(@"^[a-zA-Z]{2}\d{1,4}$", ErrorMessage = "Numer lotu musi składać się z 2 liter reprezentujących linię oraz od 1 do 4 cyfr")]
+        [RegularExpression(@"^[A-Z]{2}\d{1,4}$", ErrorMessage = "Numer lotu musi składać się z 2 wielkich liter reprezentujących linię oraz od 1 do 4 cyfr")]
         public string? Number { get; set; }
 
         [Required(ErrorMessage = "Data wylotu jest wymagana")]

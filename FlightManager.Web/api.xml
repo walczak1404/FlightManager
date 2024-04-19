@@ -4,5 +4,73 @@
         <name>FlightManager.Web</name>
     </assembly>
     <members>
+        <member name="M:FlightManager.Web.Controllers.AccountController.PostRegister(FlightManager.Core.DTO.RegisterRequest)">
+            <summary>
+            Registers new user
+            </summary>
+            <param name="registerDTO">Object with new user data</param>
+            <returns>Registered user's email, tokens and their expiration times</returns>
+        </member>
+        <member name="M:FlightManager.Web.Controllers.AccountController.PostLogin(FlightManager.Core.DTO.LoginRequest)">
+            <summary>
+            Signs in user
+            </summary>
+            <param name="loginDTO">Data of signed in user</param>
+            <returns>Signed in user's email, tokens and their expiration times</returns>
+        </member>
+        <member name="M:FlightManager.Web.Controllers.AccountController.GetLogout">
+            <summary>
+            Signs out user
+            </summary>
+        </member>
+        <member name="M:FlightManager.Web.Controllers.AccountController.GenerateNewAccessToken(FlightManager.Core.DTO.TokenModel)">
+            <summary>
+            Refreshes user's JWT token if valid refresh token is provided
+            </summary>
+            <param name="tokenModel">Object containing expired token and refresh token</param>
+            <returns>Refreshed tokens with expiration dates and user email</returns>
+        </member>
+        <member name="M:FlightManager.Web.Controllers.AircraftTypesController.GetAircraftTypes">
+            <summary>
+            Gets all stored aircraft types
+            </summary>
+            <returns>List of stored types</returns>
+        </member>
+        <member name="M:FlightManager.Web.Controllers.FlightsController.GetFlights(System.Nullable{System.Int32},System.Nullable{FlightManager.Core.Enums.SortType},System.Nullable{FlightManager.Core.Enums.SortOrder},System.String,System.String)">
+            <summary>
+            Gets nth 10 stored, filtered and sorted flights based on parameters
+            </summary>
+            <param name="pageNumber">Describes which nth 10 flights will be retrieved</param>
+            <param name="sortType">Parameter flights will be sorted based on</param>
+            <param name="sortOrder">Order of sorting (ASC or DESC)</param>
+            <param name="departureCity">Filter of departure city</param>
+            <param name="arrivalCity">Filter of arrival city</param>
+            <returns>Fetched flights</returns>
+        </member>
+        <member name="M:FlightManager.Web.Controllers.FlightsController.PostFlight(FlightManager.Core.DTO.FlightPostRequest)">
+            <summary>
+            Posts new flight
+            </summary>
+            <param name="flightPostRequest">Flight to add</param>
+            <returns>Added flight</returns>
+        </member>
+        <member name="M:FlightManager.Web.Controllers.FlightsController.PutFlight(FlightManager.Core.DTO.FlightPutRequest)">
+            <summary>
+            Updates flight
+            </summary>
+            <param name="flightPutRequest">Flight with its id and new properties</param>
+            <returns>Updated flight</returns>
+        </member>
+        <member name="M:FlightManager.Web.Controllers.FlightsController.DeleteFlight(System.Nullable{System.Guid})">
+            <summary>
+            Deletes flight
+            </summary>
+            <param name="flightID">ID of deleted flight</param>
+        </member>
+        <member name="T:FlightManager.Web.StartupExtensions.ConfigureServicesExtension">
+            <summary>
+            builder.services configuration
+            </summary>
+        </member>
     </members>
 </doc>
