@@ -2,6 +2,7 @@
 using FlightManager.Core.Enums;
 using FlightManager.Core.ServiceInterfaces;
 using FlightManager.Core.Utilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -49,6 +50,7 @@ namespace FlightManager.Web.Controllers
         /// <param name="flightPostRequest">Flight to add</param>
         /// <returns>Added flight</returns>
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<FlightResponse>> PostFlight(FlightPostRequest flightPostRequest)
         {
             // model is validated automatically and ValidationProblem is returned if it's not valid
@@ -75,6 +77,7 @@ namespace FlightManager.Web.Controllers
         /// <param name="flightPutRequest">Flight with its id and new properties</param>
         /// <returns>Updated flight</returns>
         [HttpPut]
+        [Authorize]
         public async Task<ActionResult<FlightResponse>> PutFlight(FlightPutRequest flightPutRequest)
         {
             // model is validated automatically and ValidationProblem is returned if it's not valid
@@ -100,6 +103,7 @@ namespace FlightManager.Web.Controllers
         /// </summary>
         /// <param name="flightID">ID of deleted flight</param>
         [HttpDelete("{flightID:Guid}")]
+        [Authorize]
         public async Task<IActionResult> DeleteFlight(Guid? flightID)
         {
             try
