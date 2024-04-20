@@ -31,7 +31,7 @@ namespace FlightManager.Core.Services
         public AuthenticationResponse CreateJwtToken(AppUser user)
         {
             // Create a DateTime object representing the token expiration time by adding the number of minutes specified in the configuration to the current UTC time.
-            DateTime expiration = DateTime.Now.AddMinutes(Convert.ToDouble(_configuration["Jwt:EXPIRATION_MINUTES"]));
+            DateTime expiration = DateTime.UtcNow.AddMinutes(Convert.ToDouble(_configuration["Jwt:EXPIRATION_MINUTES"]));
 
             // Create an array of Claim objects representing the user's claims, such as their ID, name, email, etc.
             Claim[] claims = new Claim[] {
@@ -68,9 +68,9 @@ namespace FlightManager.Core.Services
             {
                 Token = token,
                 Email = user.Email,
-                ExpirationDateTimeUTC = expiration,
+                TokenExpiresInMinutes = Convert.ToInt32(_configuration["Jwt:EXPIRATION_MINUTES"]),
                 RefreshToken = GenerateRefreshToken(),
-                RefreshTokenExpirationDateTimeUTC = DateTime.Now.AddMinutes(Convert.ToInt32(_configuration["RefreshToken:EXPIRATION_MINUTES"]))
+                RefreshTokenExpirationDateTimeUTC = DateTime.UtcNow.AddMinutes(Convert.ToInt32(_configuration["RefreshToken:EXPIRATION_MINUTES"]))
             };
         }
 
