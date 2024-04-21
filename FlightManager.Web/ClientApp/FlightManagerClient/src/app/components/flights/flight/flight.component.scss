@@ -1,0 +1,58 @@
+.flight {
+   background-color: #fff;
+   box-shadow: 0 0 3px 0 black;
+   border-radius: 5px;
+   margin-bottom: 20px;
+   padding-bottom: 10px;
+
+   @media(max-width: 730px) {
+      font-size: .8rem;
+   }
+
+   &__route {
+      padding: 3% 5%;
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+
+      &__path {
+         border-bottom: 4px dotted;
+         height: 0;
+         flex-grow: 1;
+         margin: 0 5px;
+      }
+   }
+
+   &__number, &__aircraft {
+      text-align: center;
+      margin-bottom: 10px;
+   }
+
+   &__date {
+      display: flex;
+      justify-content: space-evenly;
+
+      &__part {
+         margin: 10px auto;
+
+         i {
+            margin-right: 5px;
+         }
+      }
+   }
+
+   &__options {
+      margin: 10px auto;
+      display: flex;
+      justify-content: space-around;
+      width: 30%;
+
+      // .fa-pen-to-square {
+      //    color: #F98F7C;
+      // }
+
+      // .fa-trash {
+      //    color: rgb(204, 15, 15);
+      // }
+   }
+}

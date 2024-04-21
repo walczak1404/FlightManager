@@ -1,1 +1,19 @@
-<p>flight works!</p>
+<div class="flight">
+   <div class="flight__route">
+      <p class="flight__route__departure">{{flight.departureCity}} <i class="fa-solid fa-plane-departure"></i></p>
+      <p class="flight__route__path"></p>
+      <p class="flight__route__arrival"><i class="fa-solid fa-plane-arrival"></i> {{flight.arrivalCity}}</p>
+   </div>
+   <p class="flight__number">
+      {{ flight.number }}
+   </p>
+   <p class="flight__aircraft"><i class="fa-solid fa-plane-up"></i> {{flight.aircraftType.name}}</p>
+   <div class="flight__date">
+      <p class="flight__date__part"><i class="fa-solid fa-calendar-day"></i> {{localDateString}}</p>
+      <p class="flight__date__part"><i class="fa-solid fa-clock"></i>{{localTimeString}}</p>
+   </div>
+   <p class="flight__options">
+      <i class="fa-solid fa-pen-to-square"></i>
+      <i class="fa-solid fa-trash"></i>
+   </p>
+</div>

@@ -17,7 +17,7 @@ export const isUnauthorized: CanActivateFn = () => {
   const router = inject(Router);
   if(!accountService.isAuthenticated.getValue()) return true;
   else {
-    router.navigate([""]);
+    router.navigate(["/"]);
     return false;
   }
 }

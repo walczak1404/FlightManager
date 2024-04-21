@@ -22,6 +22,10 @@
       box-shadow: 0 0 5px 0px #333;
       border-radius: 5px;
    }
+
+   .form-display-control {
+      width: 100%;
+   }
 }
 
 .logo {
@@ -60,6 +64,10 @@
          margin-top: 5px;
          color: #F98F7C;
          font-size: .7rem;
+      }
+
+      &__server-error {
+         text-align: center;
       }
    }
 

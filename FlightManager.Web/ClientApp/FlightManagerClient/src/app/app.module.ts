@@ -12,6 +12,7 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/auth/register/register.component';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { RegisterComponent } from './components/auth/register/register.component
     AddUpdateFlightComponent,
     LoginComponent,
     RegisterComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule, 

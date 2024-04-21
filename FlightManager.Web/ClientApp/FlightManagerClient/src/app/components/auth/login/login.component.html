@@ -14,12 +14,13 @@
             <label for="password">Hasło</label>
             <input type="password" id="password" name="password" ngModel #password="ngModel" required>
             <p *ngIf="password.errors?.hasOwnProperty('required') && (password.touched || form.submitted)">Hasło jest wymagane</p>
-            <p *ngIf="serverErrorMessage">{{serverErrorMessage}}</p>
+            <p class="form__element__server-error" *ngIf="serverErrorMessage">{{serverErrorMessage}}</p>
          </div>
-         <div class="form__buttons">
+         <div *ngIf="!isLoading" class="form__buttons">
             <button type="submit" class="form__buttons__submit">Zaloguj się</button>
             <button type="button" class="form__buttons__cancel" (click)="onLoginCancel()">Anuluj</button>
          </div>
+         <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
          <p class="form__register-info">Nie masz konta, a chcesz modyfikować loty?</p>
          <p class="form__register-link"><a routerLink="/register">Zarejestruj się tutaj</a></p>
       </form>
