@@ -18,7 +18,7 @@
                   <input type="text" id="departure" [(ngModel)]="departureCityFilter">
                </div>
                <div class="filter-element">
-                  <label for="arrival">Miejsce wylotu</label>
+                  <label for="arrival">Miejsce przylotu</label>
                   <input type="text" id="arrival" [(ngModel)]="arrivalCityFilter">
                </div>
                <div class="filter-button">
@@ -29,7 +29,7 @@
       </div>
       <ul class="list">
          <li *ngFor="let flight of flights">
-            <app-flight  [flight]="flight"></app-flight>
+            <app-flight  [flight]="flight" [isAuthenticated]="isAuthenticated"></app-flight>
          </li>
       </ul>
       <p class="pages" *ngIf="totalPagesCount !== 0">

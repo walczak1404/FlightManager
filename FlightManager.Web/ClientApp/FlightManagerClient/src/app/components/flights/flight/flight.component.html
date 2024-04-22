@@ -1,8 +1,14 @@
 <div class="flight">
    <div class="flight__route">
-      <p class="flight__route__departure">{{flight.departureCity}} <i class="fa-solid fa-plane-departure"></i></p>
+      <div class="flight__route__city flight__route__departure">
+         <p>{{flight.departureCity}}</p>
+         <p><i class="fa-solid fa-plane-departure"></i></p>
+      </div>
       <p class="flight__route__path"></p>
-      <p class="flight__route__arrival"><i class="fa-solid fa-plane-arrival"></i> {{flight.arrivalCity}}</p>
+      <div class="flight__route__city flight__route__arrival">
+         <p><i class="fa-solid fa-plane-arrival"></i></p>
+         <p>{{flight.arrivalCity}}</p>
+      </div>
    </div>
    <p class="flight__number">
       {{ flight.number }}
@@ -12,8 +18,14 @@
       <p class="flight__date__part"><i class="fa-solid fa-calendar-day"></i> {{localDateString}}</p>
       <p class="flight__date__part"><i class="fa-solid fa-clock"></i>{{localTimeString}}</p>
    </div>
-   <p class="flight__options">
-      <i class="fa-solid fa-pen-to-square"></i>
-      <i class="fa-solid fa-trash"></i>
-   </p>
+   <div class="flight__options" [ngClass]="{'flight__options--disabled': !isAuthenticated}">
+      <p class="flight__options__edit">
+         <a [routerLink]="['edit', flight.flightID]"><i class="fa-solid fa-pen-to-square"></i></a>
+         <app-item-disabled-message>Aby modyfikować loty należy się zalogować</app-item-disabled-message>
+      </p>
+      <p class="flight__options__delete">
+         <a [routerLink]="['delete', flight.flightID]"><i class="fa-solid fa-trash"></i></a>
+         <app-item-disabled-message>Aby usuwać loty należy się zalogować</app-item-disabled-message>
+      </p>
+   </div>
 </div>

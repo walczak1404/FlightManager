@@ -1,0 +1,18 @@
+.item-disabled-msg {
+   position: absolute;
+   left: 50%;
+   top: 100%;
+   transform: translateX(-46%);
+   color: #F98F7C;
+   border: 1px solid #F98F7C;
+   border-radius: 2px;
+   padding: 5px;
+   background-color: #fff;
+   font-size: .7rem;
+   width: max-content;
+   display: block;
+
+   @media(max-width: 450px) {
+      font-size: .6rem;
+   }
+}

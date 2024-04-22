@@ -45,6 +45,27 @@ namespace FlightManager.Web.Controllers
         }
 
         /// <summary>
+        /// Gets single flight based on ID
+        /// </summary>
+        /// <param name="flightID">ID of flight</param>
+        /// <returns>Single flight</returns>
+        [HttpGet("{flightID:guid}")]
+        public async Task<ActionResult<FlightResponse>> GetFlight(Guid? flightID)
+        {
+            FlightResponse retrievedFlight;
+
+            try
+            {
+                retrievedFlight = await _flightsService.GetFlightByIDAsync(flightID);
+            } catch (Exception e)
+            {
+                return Problem(e.Message, statusCode: StatusCodes.Status400BadRequest);
+            }
+
+            return Ok(retrievedFlight);
+        }
+
+        /// <summary>
         /// Posts new flight
         /// </summary>
         /// <param name="flightPostRequest">Flight to add</param>

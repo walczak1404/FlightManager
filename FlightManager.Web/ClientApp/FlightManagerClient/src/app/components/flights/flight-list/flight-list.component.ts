@@ -5,6 +5,7 @@ import { PagedList } from '../../../models/pagedList.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FlightResponse } from '../../../models/flightResponse.model';
 import { Subscription, combineLatest } from 'rxjs';
+import { AccountService } from '../../../services/account.service';
 
 @Component({
   selector: 'app-flight-list',
@@ -14,6 +15,9 @@ import { Subscription, combineLatest } from 'rxjs';
 export class FlightListComponent implements OnInit, OnDestroy {
   flights: FlightResponse[];
   totalPagesCount: number;
+
+  private _authenticationObserver: Subscription;
+  isAuthenticated: boolean;
 
   isLoading: boolean = false;
 
@@ -37,14 +41,14 @@ export class FlightListComponent implements OnInit, OnDestroy {
     {text: "Miejsce wylotu (A-Z)", queryParams: {sortType: "departureCity", sortOrder: "ASC", departureCity: this.departureCityFilter, arrivalCity: this.arrivalCityFilter}},
     {text: "Miejsce wylotu (Z-A)", queryParams: {sortType: "departureCity", sortOrder: "DESC", departureCity: this.departureCityFilter, arrivalCity: this.arrivalCityFilter}},
     {text: "Miejsce przylotu (A-Z)", queryParams: {sortType: "arrivalCity", sortOrder: "ASC", departureCity: this.departureCityFilter, arrivalCity: this.arrivalCityFilter}},
-    {text: "Miejsce przylotu (A-Z)", queryParams: {sortType: "arrivalCity", sortOrder: "DESC", departureCity: this.departureCityFilter, arrivalCity: this.arrivalCityFilter}},
+    {text: "Miejsce przylotu (Z-A)", queryParams: {sortType: "arrivalCity", sortOrder: "DESC", departureCity: this.departureCityFilter, arrivalCity: this.arrivalCityFilter}},
     {text: "Typ samolotu (A-Z)", queryParams: {sortType: "aircraftType", sortOrder: "ASC", departureCity: this.departureCityFilter, arrivalCity: this.arrivalCityFilter}},
     {text: "Typ samolotu (Z-A)", queryParams: {sortType: "aircraftType", sortOrder: "DESC", departureCity: this.departureCityFilter, arrivalCity: this.arrivalCityFilter}},
   ]
 
   serverError: string = null;
 
-  constructor(private _flightsService: FlightsService, private _route: ActivatedRoute, private _router: Router) { }
+  constructor(private _flightsService: FlightsService, private _accountService: AccountService, private _route: ActivatedRoute, private _router: Router) { }
 
   ngOnInit(): void {
     this.paramsSubscription = combineLatest([
@@ -61,6 +65,12 @@ export class FlightListComponent implements OnInit, OnDestroy {
         this.fetchFlights();
       }
     });
+
+    this._authenticationObserver = this._accountService.isAuthenticated.subscribe({
+      next: userLoggedIn => {
+        this.isAuthenticated = userLoggedIn;
+      }
+    })
   }
 
   ngOnDestroy() {

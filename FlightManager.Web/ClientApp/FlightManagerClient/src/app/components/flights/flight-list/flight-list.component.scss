@@ -1,12 +1,12 @@
 .container {
    width: 100%;
-   min-width: 310px;
+   min-width: 300px;
    // background-color: red;
 
    .list-container {
       margin: 20px auto;
       width: 70%;
-      min-width: 310px;
+      min-width: 300px;
       // background-color: green;
    }
 }
@@ -70,6 +70,7 @@
             input {
                margin-top: 5px;
                border: 1px solid #0E5DDD;
+               color: #0E5DDD;
                border-radius: 3px;
                padding: 3px;
                outline: none;

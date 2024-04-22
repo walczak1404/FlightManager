@@ -1,17 +1,14 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SortType } from '../enums/SortType';
-import { SortOrder } from '../enums/SortOrder';
-import { Observable } from 'rxjs';
-import { FlightResponse } from '../models/flightResponse.model';
+import { Observable, Subject } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { PagedList } from '../models/pagedList.model';
+import { FlightResponse } from '../models/flightResponse.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FlightsService {
-
   constructor(private _httpClient: HttpClient) { }
 
   getFlights(pageNumber: number = 1, sortType: string = "DepartureDateUTC", sortOrder: string = "ASC", departureCity: string = "", arrivalCity: string = ""): Observable<PagedList> {
@@ -24,5 +21,46 @@ export class FlightsService {
     return this._httpClient.get<PagedList>(`${environment["API_URL"]}/flights/${pageNumber}`, {
       params: searchParams
     })
+  }
+  
+  getFlightByID(flightID: string): Observable<FlightResponse> {
+    return this._httpClient.get<FlightResponse>(`${environment["API_URL"]}/flights/${flightID}`);
+  }
+
+  postFlight(number, departureDateUTC, departureCity, arrivalCity, aircraftTypeID): Observable<FlightResponse> {
+    return this._httpClient.post<FlightResponse>(`${environment["API_URL"]}/flights`,
+      {
+        number,
+        departureDateUTC,
+        departureCity,
+        arrivalCity,
+        aircraftTypeID
+      },
+      {
+        headers: new HttpHeaders({"Authorization": `Bearer ${localStorage.getItem("token")}`})
+      }
+    );
+  }
+
+  putFlight(flightID, number, departureDateUTC, departureCity, arrivalCity, aircraftTypeID): Observable<FlightResponse> {
+    return this._httpClient.put<FlightResponse>(`${environment["API_URL"]}/flights`,
+      {
+        flightID,
+        number,
+        departureDateUTC,
+        departureCity,
+        arrivalCity,
+        aircraftTypeID
+      },
+      {
+        headers: new HttpHeaders({"Authorization": `Bearer ${localStorage.getItem("token")}`})
+      }
+    );
+  }
+
+  deleteFlight(flightID: string): Observable<void> {
+    return this._httpClient.delete<void>(`${environment["API_URL"]}/flights/${flightID}`, {
+      headers: new HttpHeaders({"Authorization": `Bearer ${localStorage.getItem("token")}`})
+    });
   }
 }

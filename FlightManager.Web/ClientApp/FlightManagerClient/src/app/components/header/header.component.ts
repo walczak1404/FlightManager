@@ -14,6 +14,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private _authenticationObserver: Subscription;
   biggerWidth: boolean;
   isAuthenticated: boolean;
+  notAuthenticatedMessageVisible: boolean;
 
   constructor(private _breakpointObserver: BreakpointObserver, private _accountService: AccountService, private _router: Router) {}
 

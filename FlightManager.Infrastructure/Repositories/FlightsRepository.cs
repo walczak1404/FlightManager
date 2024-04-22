@@ -38,7 +38,8 @@ namespace FlightManager.Infrastructure.Repositories
 
         public async Task<Flight?> GetFlightByIDAsync(Guid flightID)
         {
-            return await _db.Flights.FindAsync(flightID);
+            return await _db.Flights.Include(f => f.AircraftType).FirstOrDefaultAsync(f => f.FlightID == flightID);
+            //return await _db.Flights.FindAsync(flightID).Include(f => f.AircraftType);
         }
 
         public async Task<Flight> PostFlightAsync(Flight flight)

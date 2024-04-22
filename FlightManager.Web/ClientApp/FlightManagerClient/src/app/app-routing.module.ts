@@ -6,11 +6,15 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { isAuthorized, isUnauthorized } from './guards/auth.guard';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { validPageNumberGuard } from './guards/valid-page-number.guard';
+import { DeleteFlightComponent } from './components/flights/delete-flight/delete-flight.component';
 
 const routes: Routes = [
-  {path: "flights/:pageNumber", component: FlightListComponent, canActivate: [validPageNumberGuard]},
+  {path: "flights/:pageNumber", component: FlightListComponent, canActivate: [validPageNumberGuard], children: [
+    {path: "add", component: AddUpdateFlightComponent, canActivate: [isAuthorized]},
+    {path: "edit/:flightID", component: AddUpdateFlightComponent, canActivate: [isAuthorized]},
+    {path: "delete/:flightID", component: DeleteFlightComponent, canActivate: [isAuthorized]}
+  ]},
   {path: "flights", redirectTo: "/flights/1", pathMatch: 'full'},
-  {path: "new-flight", component: AddUpdateFlightComponent, canActivate: [isAuthorized]},
   {path: "login", component: LoginComponent, canActivate: [isUnauthorized]},
   {path: "register", component: RegisterComponent, canActivate: [isUnauthorized]},
   {path: "", redirectTo: "/flights/1", pathMatch: 'full'}

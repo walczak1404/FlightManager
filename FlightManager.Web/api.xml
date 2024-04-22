@@ -47,6 +47,13 @@
             <param name="arrivalCity">Filter of arrival city</param>
             <returns>Fetched flights</returns>
         </member>
+        <member name="M:FlightManager.Web.Controllers.FlightsController.GetFlight(System.Nullable{System.Guid})">
+            <summary>
+            Gets single flight based on ID
+            </summary>
+            <param name="flightID">ID of flight</param>
+            <returns>Single flight</returns>
+        </member>
         <member name="M:FlightManager.Web.Controllers.FlightsController.PostFlight(FlightManager.Core.DTO.FlightPostRequest)">
             <summary>
             Posts new flight

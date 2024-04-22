@@ -9,17 +9,55 @@
       font-size: .8rem;
    }
 
+   @media(max-width: 500px) {
+      font-size: .55rem;
+   }
+
    &__route {
-      padding: 3% 5%;
       display: flex;
+      padding: 15px 10px;
       align-items: center;
+      justify-content: center;
       font-weight: bold;
+      // background-color: green;
+
+      &__city {
+         display: flex;
+         flex-basis: 20%;
+         align-items: center;
+
+         p {
+            width: min-content;
+         }
+      }
+
+      &__departure {
+         justify-content: flex-end;
+
+         i {
+            margin-left: 5px;
+         }
+      }
+
+      &__arrival {
+         justify-content: flex-start;
+
+         i {
+            margin-right: 5px;
+         }
+      }
 
       &__path {
          border-bottom: 4px dotted;
          height: 0;
          flex-grow: 1;
+         min-width: 25%;
          margin: 0 5px;
+         align-self: center;
+      }
+
+      @media (max-width: 600px) {
+         font-size: .8rem;
       }
    }
 
@@ -44,15 +82,42 @@
    &__options {
       margin: 10px auto;
       display: flex;
-      justify-content: space-around;
-      width: 30%;
+      justify-content: center;
 
-      // .fa-pen-to-square {
-      //    color: #F98F7C;
-      // }
+      &__edit, &__delete {
+         position: relative;
+         // background-color: red;
 
-      // .fa-trash {
-      //    color: rgb(204, 15, 15);
-      // }
+         app-item-disabled-message {
+            display: none;
+         }
+      }
+
+      &--disabled {
+         p:hover {
+            app-item-disabled-message {
+               display: block;
+            }
+         }
+      }
+
+      &__edit {
+         text-align: right;
+         margin-right: 20px;
+      }
+
+      &__delete {
+         margin-left: 20px;
+      }
+
+      i {
+         color: #0E5DDD;
+      }
+
+      &--disabled {
+         i {
+            color: #0E5DDD88;
+         }
+      }
    }
 }

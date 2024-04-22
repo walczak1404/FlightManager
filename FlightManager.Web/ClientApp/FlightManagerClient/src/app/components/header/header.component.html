@@ -11,11 +11,11 @@
       <ul class="navbar__list" [ngClass]="{'navbar__list--smaller': !biggerWidth}">
          <li class="navbar__list__item" [ngClass]="{'navbar__list__item--disabled': !isAuthenticated}">
             <a class="link item__link"
-               [routerLink]="['/new-flight']"
+               [routerLink]="['add']"
                routerLinkActive="link--active"
                [routerLinkActiveOptions]="{exact: true}"
             >Dodaj lot</a>
-            <p class="item-disabled-msg">Aby dodać lot należy się zalogować</p>
+            <app-item-disabled-message>Aby dodać lot należy się zalogować</app-item-disabled-message>
          </li>
          <li class="navbar__list__item">
             <a *ngIf="!isAuthenticated" class="link item__link" [routerLink]="['/login']" routerLinkActive="link--active" [routerLinkActiveOptions]="{exact: true}">Zaloguj się</a>

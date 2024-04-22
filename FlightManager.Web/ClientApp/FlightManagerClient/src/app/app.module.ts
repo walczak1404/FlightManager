@@ -13,6 +13,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { ItemDisabledMessageComponent } from './components/item-disabled-message/item-disabled-message.component';
+import { DeleteFlightComponent } from './components/flights/delete-flight/delete-flight.component';
+import { BackdropComponent } from './components/backdrop/backdrop.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,10 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
     AddUpdateFlightComponent,
     LoginComponent,
     RegisterComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    ItemDisabledMessageComponent,
+    DeleteFlightComponent,
+    BackdropComponent
   ],
   imports: [
     BrowserModule, 

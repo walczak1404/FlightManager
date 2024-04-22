@@ -1,0 +1,36 @@
+.delete-alert {
+   position: fixed;
+   padding: 20px 10%;
+   min-width: 305px;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   background-color: #eee;
+   border-radius: 5px;
+
+   &__message {
+      text-align: center;
+   }
+
+   &__buttons {
+      margin-top: 15px;
+      display: flex;
+      justify-content: space-evenly;
+
+      button {
+         border-radius: 5px;
+         padding: 8px 6%;
+         border: none;
+         outline: none;
+         color: white;
+      }
+
+      &__confirm {
+         background-color: #0E5DDD;
+      }
+
+      &__cancel {
+         background-color: #F98F7C;
+      }
+   }
+}
