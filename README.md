@@ -80,7 +80,9 @@ Aby uruchomić aplikację lokalnie, wymagane są następujące komponenty:
 		- xunit.runner.visualstudio 2.4.5
 3. Stwórz pustą bazę danych za pomocą wbudowanego w Visual Studio SQL Server Object Explorer
 4. Dodaj do konfiguracji następujące właściwości:
-	- "ConnectionString:DefaultConnection": connection string do stworzonej wcześniej bazy danych
+	- "ConnectionStrings": {
+		- "DefaultConnection": connection string do stworzonej wcześniej bazy danych
+	} - potrzebne do utworzenia bazy danych na podstawie migracji
 	- "JWT": {
 		- "Audience": domena aplikacji klienta
 		- "Issuer": domena API
