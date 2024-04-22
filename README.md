@@ -82,11 +82,11 @@ Aby uruchomić aplikację lokalnie, wymagane są następujące komponenty:
 4. Dodaj do konfiguracji następujące właściwości:
 	- "ConnectionString:DefaultConnection": connection string do stworzonej wcześniej bazy danych
 	- "JWT": {
-			"Audience": domena aplikacji klienta
-			"Issuer": domena API
-			"Key": dowolny klucz używany do generowania tokena uwierzytelniającego
-			"Expiration_Minutes": czas, po którym wygasa token uwierzytelniający
-	   } - są to rzeczy potrzebne do poprawnego generowania tokena uwierzytelniającego. Moje są zawarte w 	secrets managerze, więc nie są udostępnione w repozytorium.
+		- "Audience": domena aplikacji klienta
+		- "Issuer": domena API
+		- "Key": dowolny klucz używany do generowania tokena uwierzytelniającego
+		- "Expiration_Minutes": czas, po którym wygasa token uwierzytelniający
+	   } - są to rzeczy potrzebne do poprawnego generowania tokena uwierzytelniającego. Moje są zawarte w secrets managerze, więc nie są udostępnione w repozytorium.
 5. W Package Manager Console na projekcie .Infrastructure przeprowadź migrację za pomocą polecenia update-database.
 6. API jest gotowe do uruchomienia. jego dokumentacja będzie dostępna po uruchomieniu w przeglądarce
 
