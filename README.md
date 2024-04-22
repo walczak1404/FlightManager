@@ -97,3 +97,4 @@ Aby uruchomić aplikację lokalnie, wymagane są następujące komponenty:
 1. Wejdź w katalog aplikacji klienta.
 2. Zainstaluj wszystkie używane paczki za pomocą komendy npm install w terminalu.
 3. Uruchom aplikację za pomocą komendy ng serve.
+4. **Do poprawngo działania aplikacji klienta wymagane jest, aby API działało na porcie 7074**
