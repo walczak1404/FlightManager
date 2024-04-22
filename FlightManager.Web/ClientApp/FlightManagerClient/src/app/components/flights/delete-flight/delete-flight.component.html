@@ -1,9 +1,15 @@
 <app-backdrop>
    <div class="delete-alert" #ngContentElement>
-      <p class="delete-alert__message">Czy na pewno chcesz usunąć ten lot?</p>
-      <p class="delete-alert__buttons">
-         <button class="delete-alert__buttons__confirm" (click)="onDeleteFlight()">Tak</button>
-         <button class="delete-alert__buttons__cancel" (click)="onReturnToLastPage()">Nie</button>
-      </p>
+      <div class="delete-alert-part" *ngIf="!isLoading && !serverErrorMessage">
+         <p class="delete-alert__message">Czy na pewno chcesz usunąć ten lot?</p>
+         <p class="delete-alert__buttons">
+            <button class="delete-alert__buttons__confirm" (click)="onDeleteFlight()">Tak</button>
+            <button class="delete-alert__buttons__cancel" (click)="onReturnToLastPage()">Nie</button>
+         </p>
+      </div>
+      <div *ngIf="isLoading" class="delete-alert-part">
+         <app-loading-spinner></app-loading-spinner>
+      </div>
+      <div *ngIf="serverErrorMessage" class="delete-alert-part">{{serverErrorMessage}}</div>
    </div>
 </app-backdrop>

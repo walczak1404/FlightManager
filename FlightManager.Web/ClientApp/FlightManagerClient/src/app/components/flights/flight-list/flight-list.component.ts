@@ -16,7 +16,7 @@ export class FlightListComponent implements OnInit, OnDestroy {
   flights: FlightResponse[];
   totalPagesCount: number;
 
-  private _authenticationObserver: Subscription;
+  authenticationObserver: Subscription;
   isAuthenticated: boolean;
 
   isLoading: boolean = false;
@@ -66,15 +66,20 @@ export class FlightListComponent implements OnInit, OnDestroy {
       }
     });
 
-    this._authenticationObserver = this._accountService.isAuthenticated.subscribe({
+    this.authenticationObserver = this._accountService.isAuthenticated.subscribe({
       next: userLoggedIn => {
         this.isAuthenticated = userLoggedIn;
       }
+    });
+
+    this._flightsService.reloadFlights.subscribe(() => {
+      this.fetchFlights();
     })
   }
 
   ngOnDestroy() {
     this.paramsSubscription.unsubscribe();
+    this.authenticationObserver.unsubscribe();
   }
 
   private fetchFlights() {

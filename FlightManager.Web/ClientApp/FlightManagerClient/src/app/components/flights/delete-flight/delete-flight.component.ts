@@ -15,6 +15,8 @@ export class DeleteFlightComponent implements OnInit, OnDestroy {
 
   flightID: string;
   paramSubscription: Subscription;
+  isLoading: boolean = false;
+  serverErrorMessage: string = null;
 
   constructor(private _location: Location, private _route: ActivatedRoute, private _flightsService: FlightsService) {}
 
@@ -22,19 +24,25 @@ export class DeleteFlightComponent implements OnInit, OnDestroy {
     this.paramSubscription = this._route.params.subscribe({
       next: (params: Params) => {
         this.flightID = params["flightID"];
-        console.log(this.flightID);
       }
     });
   }
 
   ngOnDestroy() {
-
+    this.paramSubscription.unsubscribe();
   }
 
   onDeleteFlight() {
+    this.isLoading = true;
     this._flightsService.deleteFlight(this.flightID).subscribe({
       next: () => {
         this._location.back();
+        this._flightsService.reloadFlights.next();
+      },
+
+      error: () => {
+        this.isLoading = false;
+        this.serverErrorMessage = "Coś poszło nie tak";
       }
     })
   }

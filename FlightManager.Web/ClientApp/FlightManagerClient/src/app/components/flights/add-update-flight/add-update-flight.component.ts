@@ -86,6 +86,8 @@ export class AddUpdateFlightComponent implements OnInit, OnDestroy {
 
   onFormSubmit() {
     if(this.form.valid && this.isDateValid) {
+      this.serverErrorMessage = null;
+      this.isLoading = true;
       const departureDateUTC = this._dateService.toISOString(this.form.value.departureDate);
       let tempObs: Observable<FlightResponse>;
       if(this.isUpdate) {
@@ -97,9 +99,12 @@ export class AddUpdateFlightComponent implements OnInit, OnDestroy {
       tempObs.subscribe({
         next: (flightResponse: FlightResponse) => {
           this._location.back();
+          this._flightsService.reloadFlights.next();
         },
 
         error: (errorRes: HttpErrorResponse) => {
+          this.isLoading = false;
+          this.serverErrorMessage = "Coś poszło nie tak";
           console.log(errorRes);
         }
       })

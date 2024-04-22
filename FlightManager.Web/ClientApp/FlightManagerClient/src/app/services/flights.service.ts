@@ -9,6 +9,9 @@ import { FlightResponse } from '../models/flightResponse.model';
   providedIn: 'root'
 })
 export class FlightsService {
+
+  reloadFlights: Subject<void> = new Subject<void>();
+
   constructor(private _httpClient: HttpClient) { }
 
   getFlights(pageNumber: number = 1, sortType: string = "DepartureDateUTC", sortOrder: string = "ASC", departureCity: string = "", arrivalCity: string = ""): Observable<PagedList> {

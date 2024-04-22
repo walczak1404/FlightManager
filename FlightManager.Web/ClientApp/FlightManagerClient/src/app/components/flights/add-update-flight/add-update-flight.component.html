@@ -15,7 +15,6 @@
                <input type="datetime-local" id="departureDate" name="departureDate" [ngModel]="updateFlightDepartureDate" #departureDate="ngModel" required (ngModelChange)="validateFutureDate($event)">
                <p *ngIf="departureDate.errors?.hasOwnProperty('required') && (departureDate.touched || form.submitted)">Data i godzina jest wymagana</p>
                <p *ngIf="!isDateValid">Data nie może być przeszła</p>
-               <p class="form__element__server-error" *ngIf="serverErrorMessage">{{serverErrorMessage}}</p>
             </div>
             <div class="form__element">
                <label for="departureCity">Miejsce wylotu</label>
@@ -35,6 +34,7 @@
                   <option *ngFor="let option of aircraftTypeOptions" [value]="option.aircraftTypeID">{{option.name}}</option>
                </select>
                <p *ngIf="form.controls.aircraftTypeID?.errors?.required &&(form.controls.aircraftTypeID?.touched || form.submitted)">Typ samolotu jest wymagany</p>
+               <p class="form__element__server-error" *ngIf="serverErrorMessage">{{serverErrorMessage}}</p>
             </div>
             <div *ngIf="!isLoading" class="form__buttons">
                <button type="submit" class="form__buttons__submit">{{ isUpdate ? 'Edytuj' : 'Dodaj' }} lot</button>
