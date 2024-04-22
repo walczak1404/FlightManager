@@ -56,8 +56,30 @@ Aby uruchomić aplikację lokalnie, wymagane są następujące komponenty:
 ## Instrukcje uruchomienia API
 
 1. Sklonuj repozytorium.
-2. Stwórz pustą bazę danych za pomocą wbudowanego w Visual Studio SQL Server Object Explorer
-3. Dodaj do konfiguracji następujące właściwości:
+2. Zainstaluj potrzebne paczki w razie konieczności:
+	- Dla projektu .Core:
+		- Microsoft.AspNetCore.Identity.EntityFramework 7.0.18
+		- System.IdentityModel.Tokens.Jwt 7.5.1
+	- Dla projektu .Infrastructure:
+		- Microsoft.EntityFrameworkCore.SqlServer 7.0.18
+		- Microsoft.EntityFrameworkCore.Tools 7.0.18
+	- Dla projektu .Web:
+		- Microsoft.AspNetCore.Authentication.JwtBearer 7.0.18
+		- Microsoft.AspNetCore.Identity.EntityFrameworkCore 7.0.18
+		- Microsoft.AspNetCore.OpenApi 7.0.18
+		- Microsoft.EntityFrameworkCore 7.0.18
+		- Microsoft.EntityFrameworkCore.Design 7.0.18
+		- Swashbuckle.AspNetCore 6.5.0
+	- Dla projektu .ServiceTests:
+		- AutoFixture 4.18.1
+		- coverlet.collector 3.2.0
+		- FluentAssertions 6.12.0
+		- Microsoft.NET.Test.Sdk 17.7.1
+		- Moq 4.20.70
+		- xunit 2.4.2
+		- xunit.runner.visualstudio 2.4.5
+3. Stwórz pustą bazę danych za pomocą wbudowanego w Visual Studio SQL Server Object Explorer
+4. Dodaj do konfiguracji następujące właściwości:
 	- "ConnectionString:DefaultConnection": connection string do stworzonej wcześniej bazy danych
 	- "JWT": {
 			"Audience": domena aplikacji klienta
@@ -65,8 +87,8 @@ Aby uruchomić aplikację lokalnie, wymagane są następujące komponenty:
 			"Key": dowolny klucz używany do generowania tokena uwierzytelniającego
 			"Expiration_Minutes": czas, po którym wygasa token uwierzytelniający
 	   } - są to rzeczy potrzebne do poprawnego generowania tokena uwierzytelniającego. Moje są zawarte w 	secrets managerze, więc nie są udostępnione w repozytorium.
-4. W Package Manager Console na projekcie .Infrastructure przeprowadź migrację za pomocą polecenia update-database.
-5. API jest gotowe do uruchomienia. jego dokumentacja będzie dostępna po uruchomieniu w przeglądarce
+5. W Package Manager Console na projekcie .Infrastructure przeprowadź migrację za pomocą polecenia update-database.
+6. API jest gotowe do uruchomienia. jego dokumentacja będzie dostępna po uruchomieniu w przeglądarce
 
 ## Instrukcje uruchomienia interfejsu użytkownika
 
