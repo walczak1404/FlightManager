@@ -20,6 +20,13 @@ namespace FlightManager.Core.ServiceInterfaces
         Task<PagedList<FlightResponse>> GetFlightsAsync(int? pageNumber = 1, SortType? sortType = SortType.DepartureDateUTC, SortOrder? sortOrder = SortOrder.ASC, string? departureCity = "", string? arrivalCity = "");
 
         /// <summary>
+        /// Returns single flight
+        /// </summary>
+        /// <param name="flightID">ID of flight</param>
+        /// <returns>Found flight</returns>
+        Task<FlightResponse> GetFlightByIDAsync(Guid? flightID);
+
+        /// <summary>
         /// Adds new flight
         /// </summary>
         /// <param name="flightPostRequest">Added flight</param>

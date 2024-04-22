@@ -1,0 +1,35 @@
+<div class="container">
+   <div class="form-container">
+      <div class="logo">
+         <img src="assets/Logo/logo-transparent.png" alt="Flight Manager logo">
+      </div>
+      <form class="form" ngForm #form="ngForm" (ngSubmit)="onSubmitRegister()">
+         <div class="form__element">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" ngModel #email="ngModel" required email>
+            <p *ngIf="email.errors?.hasOwnProperty('required') && (email.touched || form.submitted)">Email jest wymagany</p>
+            <p *ngIf="email.errors?.hasOwnProperty('email') && (email.touched || form.submitted)">Email musi być w poprawnym formacie</p>
+         </div>
+         <div class="form__element">
+            <label for="password">Hasło</label>
+            <input type="password" id="password" name="password" ngModel #password="ngModel" required minlength="4" maxlength="40">
+            <p *ngIf="password.errors?.hasOwnProperty('required') && (password.touched || form.submitted)">Hasło jest wymagane</p>
+            <p *ngIf="password.errors?.hasOwnProperty('minlength') && (password.touched || form.submitted)">Hasło nie może mieć mniej niż 4 znaki</p>
+            <p *ngIf="password.errors?.hasOwnProperty('maxlength') && (password.touched || form.submitted)">Hasło nie może mieć więcej niż 40 znaków</p>
+         </div>
+         <div class="form__element">
+            <label for="repeat-password">Powtórz hasło</label>
+            <input type="password" id="repeat-password" name="repeatPassword" ngModel #repeatPassword="ngModel" required>
+            <p *ngIf="(repeatPassword.value !== password.value) && (repeatPassword.touched || form.submitted)">Hasła muszą być takie same</p>
+            <p class="form__element__server-error" *ngIf="serverErrorMessage">{{serverErrorMessage}}</p>
+         </div>
+         <div *ngIf="!isLoading" class="form__buttons">
+            <button type="submit" class="form__buttons__submit">Zarejestruj się</button>
+            <button type="button" class="form__buttons__cancel" (click)="onRegisterCancel()">Anuluj</button>
+         </div>
+         <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+         <p class="form__register-info">Masz już konto?</p>
+         <p class="form__register-link"><a routerLink="/login">Zaloguj się tutaj</a></p>
+      </form>
+   </div>
+</div>

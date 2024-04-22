@@ -23,7 +23,7 @@
             Signs out user
             </summary>
         </member>
-        <member name="M:FlightManager.Web.Controllers.AccountController.GenerateNewAccessToken(FlightManager.Core.DTO.TokenModel)">
+        <member name="M:FlightManager.Web.Controllers.AccountController.PutToken(FlightManager.Core.DTO.TokenModel)">
             <summary>
             Refreshes user's JWT token if valid refresh token is provided
             </summary>
@@ -46,6 +46,13 @@
             <param name="departureCity">Filter of departure city</param>
             <param name="arrivalCity">Filter of arrival city</param>
             <returns>Fetched flights</returns>
+        </member>
+        <member name="M:FlightManager.Web.Controllers.FlightsController.GetFlight(System.Nullable{System.Guid})">
+            <summary>
+            Gets single flight based on ID
+            </summary>
+            <param name="flightID">ID of flight</param>
+            <returns>Single flight</returns>
         </member>
         <member name="M:FlightManager.Web.Controllers.FlightsController.PostFlight(FlightManager.Core.DTO.FlightPostRequest)">
             <summary>

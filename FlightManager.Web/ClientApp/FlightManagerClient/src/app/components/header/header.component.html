@@ -1,1 +1,27 @@
-<p>header works!</p>
+<header class="header">
+   <div class="logo" [ngClass]="{'logo--small': !biggerWidth}">
+         <img
+            class="logo__image"
+            [src]="biggerWidth ? 'assets/Logo/logo-transparent.png' : 'assets/Logo/logo-icon-transparent.png'"
+            alt="Flight Manager logo"
+            (click)="onRedirectToMainPage()"
+         >
+   </div>
+   <nav class="navbar">
+      <ul class="navbar__list" [ngClass]="{'navbar__list--smaller': !biggerWidth}">
+         <li class="navbar__list__item" [ngClass]="{'navbar__list__item--disabled': !isAuthenticated}">
+            <a class="link item__link"
+               [routerLink]="['add']"
+               routerLinkActive="link--active"
+               [routerLinkActiveOptions]="{exact: true}"
+            >Dodaj lot</a>
+            <app-item-disabled-message>Aby dodać lot należy się zalogować</app-item-disabled-message>
+         </li>
+         <li class="navbar__list__item">
+            <a *ngIf="!isAuthenticated" class="link item__link" [routerLink]="['/login']" routerLinkActive="link--active" [routerLinkActiveOptions]="{exact: true}">Zaloguj się</a>
+            <a *ngIf="isAuthenticated" class="link item__link" (click)="onLogout()">Wyloguj się</a>
+         </li>
+      </ul>
+   </nav>
+</header>
+<router-outlet></router-outlet>

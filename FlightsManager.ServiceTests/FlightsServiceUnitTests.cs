@@ -24,7 +24,7 @@ namespace FlightsManager.ServiceTests
         #region GetFlightsAsync
 
         [Fact]
-        public async Task GetFligtsAsync_ShouldThrowArgumentNullException_WhenOneOfParametersIsNull()
+        public async Task GetFlightsAsync_ShouldThrowArgumentNullException_WhenOneOfParametersIsNull()
         {
             // Act
             Func<Task> action = async () =>
@@ -37,7 +37,7 @@ namespace FlightsManager.ServiceTests
         }
 
         [Fact]
-        public async Task GetFligtsAsync_ShouldThrowArgumentException_WhenPageNumberIsLowerThanOne()
+        public async Task GetFlightsAsync_ShouldThrowArgumentException_WhenPageNumberIsLowerThanOne()
         {
             // Arrange
             int invalidPageNumberZero = 0;
@@ -60,7 +60,7 @@ namespace FlightsManager.ServiceTests
         }
 
         [Fact]
-        public async Task GetFligtsAsync_ShouldReturnFlights_WhenCorrectParametersAreGiven()
+        public async Task GetFlightsAsync_ShouldReturnFlights_WhenCorrectParametersAreGiven()
         {
             // Arrange
             int pageNumber = 1;
@@ -91,6 +91,61 @@ namespace FlightsManager.ServiceTests
 
             // Assert
             retrievedResponse.Should().BeEquivalentTo(sampleResponsesPagedList);
+        }
+
+        #endregion
+
+        #region GetFlightByIDAsync
+
+        [Fact]
+        public async Task GetFlightByIDAsync_ShouldThrowArgumentNullException_WhenFlightIDIsNull()
+        {
+            // Arrange
+            Guid? flightID = null;
+
+            // Act
+            Func<Task> action = async () =>
+            {
+                await _flightsService.GetFlightByIDAsync(flightID);
+            };
+
+            // Assert
+            await action.Should().ThrowAsync<ArgumentNullException>();
+        }
+
+        [Fact]
+        public async Task GetFlightByIDAsync_ShouldThrowArgumentException_WhenFlightDoesNotExist()
+        {
+            // Arrange
+            Guid flightID = Guid.NewGuid();
+
+            _flightsRepositoryMock.Setup(repo => repo.GetFlightByIDAsync(flightID)).ReturnsAsync(null as Flight);
+
+            // Act
+            Func<Task> action = async () =>
+            {
+                await _flightsService.GetFlightByIDAsync(flightID);
+            };
+
+            // Assert
+            await action.Should().ThrowAsync<ArgumentException>();
+        }
+
+        [Fact]
+        public async Task GetFlightByIDAsync_ShouldReturnFlight_WhenIDIsCorrect()
+        {
+            // Arrange
+            Flight sampleFlight = _fixture.Create<Flight>();
+            FlightResponse sampleFlightResponse = sampleFlight.ToFlightResponse();
+
+            _flightsRepositoryMock.Setup(repo => repo.GetFlightByIDAsync(sampleFlight.FlightID)).ReturnsAsync(sampleFlight);
+
+            // Act
+
+            FlightResponse flightFromService = await _flightsService.GetFlightByIDAsync(sampleFlight.FlightID);
+
+            // Assert
+            flightFromService.Should().BeEquivalentTo(sampleFlightResponse);
         }
 
         #endregion

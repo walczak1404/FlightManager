@@ -1,0 +1,28 @@
+<div class="container">
+   <div class="form-container">
+      <div class="logo">
+         <img src="assets/Logo/logo-transparent.png" alt="Flight Manager logo">
+      </div>
+      <form class="form" ngForm #form="ngForm" (ngSubmit)="onSubmitLogin()">
+         <div class="form__element">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" ngModel #email="ngModel" required email>
+            <p *ngIf="email.errors?.hasOwnProperty('required') && (email.touched || form.submitted)">Email jest wymagany</p>
+            <p *ngIf="email.errors?.hasOwnProperty('email') && (email.touched || form.submitted)">Email musi być w poprawnym formacie</p>
+         </div>
+         <div class="form__element">
+            <label for="password">Hasło</label>
+            <input type="password" id="password" name="password" ngModel #password="ngModel" required>
+            <p *ngIf="password.errors?.hasOwnProperty('required') && (password.touched || form.submitted)">Hasło jest wymagane</p>
+            <p class="form__element__server-error" *ngIf="serverErrorMessage">{{serverErrorMessage}}</p>
+         </div>
+         <div *ngIf="!isLoading" class="form__buttons">
+            <button type="submit" class="form__buttons__submit">Zaloguj się</button>
+            <button type="button" class="form__buttons__cancel" (click)="onLoginCancel()">Anuluj</button>
+         </div>
+         <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+         <p class="form__register-info">Nie masz konta, a chcesz modyfikować loty?</p>
+         <p class="form__register-link"><a routerLink="/register">Zarejestruj się tutaj</a></p>
+      </form>
+   </div>
+</div>

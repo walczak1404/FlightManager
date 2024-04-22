@@ -44,6 +44,17 @@ namespace FlightManager.Core.Services
 
         }
 
+        public async Task<FlightResponse> GetFlightByIDAsync(Guid? flightID)
+        {
+            if (flightID == null) throw new ArgumentNullException("Nie podano ID lotu");
+
+            Flight? flightFromID = await _flightsRepository.GetFlightByIDAsync(flightID.Value);
+
+            if (flightFromID == null) throw new ArgumentException("Podano niewłaściwe ID lotu");
+
+            return flightFromID.ToFlightResponse();
+        }
+
         public async Task<FlightResponse> PostFlightAsync(FlightPostRequest? flightPostRequest)
         {
             Validation.Validate(flightPostRequest);

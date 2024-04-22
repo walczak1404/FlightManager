@@ -101,7 +101,7 @@ namespace FlightManager.Web.Controllers
 
                 if (user == null)
                 {
-                    return NoContent();
+                    return Problem("Coœ posz³o nie tak", statusCode: StatusCodes.Status500InternalServerError);
                 }
 
                 var authenticationResponse = _jwtService.CreateJwtToken(user);
@@ -117,7 +117,7 @@ namespace FlightManager.Web.Controllers
 
             else
             {
-                return Problem("Invalid email or password");
+                return Problem("B³êdny email lub has³o", statusCode: StatusCodes.Status400BadRequest);
             }
         }
 
@@ -138,27 +138,27 @@ namespace FlightManager.Web.Controllers
         /// </summary>
         /// <param name="tokenModel">Object containing expired token and refresh token</param>
         /// <returns>Refreshed tokens with expiration dates and user email</returns>
-        [HttpPost("refresh-token")]
-        public async Task<IActionResult> GenerateNewAccessToken(TokenModel tokenModel)
+        [HttpPut("refresh-token")]
+        public async Task<ActionResult<AuthenticationResponse>> PutToken(TokenModel tokenModel)
         {
             if (tokenModel == null)
             {
-                return BadRequest("Invalid client request");
+                return BadRequest("Nie podano tokenów");
             }
 
             ClaimsPrincipal? principal = _jwtService.GetPrincipalFromJwtToken(tokenModel.Token);
             if (principal == null)
             {
-                return BadRequest("Invalid jwt access token");
+                return BadRequest("B³êdny token");
             }
 
             string? email = principal.FindFirstValue(ClaimTypes.Email);
 
             AppUser? user = await _userManager.FindByEmailAsync(email);
 
-            if (user == null || user.RefreshToken != tokenModel.RefreshToken || user.RefreshTokenExpirationDateTime <= DateTime.Now)
+            if (user == null || user.RefreshToken != tokenModel.RefreshToken || user.RefreshTokenExpirationDateTime <= DateTime.UtcNow)
             {
-                return BadRequest("Invalid refresh token");
+                return BadRequest("B³êdny token odœwie¿aj¹cy");
             }
 
             AuthenticationResponse authenticationResponse = _jwtService.CreateJwtToken(user);

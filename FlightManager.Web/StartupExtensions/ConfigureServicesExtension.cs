@@ -42,16 +42,7 @@ namespace FlightManager.Web.StartupExtensions
             });
 
             // add cors
-            services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(policyBuilder =>
-                {
-                    policyBuilder
-                    //.WithOrigins()
-                    .WithHeaders("origin", "accept", "content-type")
-                    .WithMethods("GET", "POST", "PUT", "DELETE");
-                });
-            });
+            services.AddCors();
 
             services.AddIdentity<AppUser, IdentityRole<Guid>>(options =>
             {

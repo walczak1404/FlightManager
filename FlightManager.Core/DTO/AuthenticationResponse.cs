@@ -6,7 +6,7 @@
 
         public string? Token { get; set; }
 
-        public DateTime ExpirationDateTimeUTC { get; set; }
+        public int TokenExpiresInMinutes { get; set; }
 
         public string? RefreshToken { get; set; }
 

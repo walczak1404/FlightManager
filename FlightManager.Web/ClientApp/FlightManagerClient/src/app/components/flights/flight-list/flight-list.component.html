@@ -1,1 +1,44 @@
-<p>flight-list works!</p>
+<app-header></app-header>
+<div class="container" (click)="hideSortAndFilterOptions($event)">
+   <div class="list-container" *ngIf="!isLoading && !serverError">
+      <div class="list-options">
+         <div class="list-options__sort">
+            <i class="fa-solid fa-sort" (click)="toggleSortOptions()" #sortOptions></i>
+            <div *ngIf="sortOptionsVisible" class="list-options__sort__options">
+               <p *ngFor="let option of sortOptionsArray">
+                  <a class="link" [routerLink]="['/flights', pageNumber]" [queryParams]="option.queryParams" [ngClass]="{'link--active': sortType === option.queryParams.sortType && sortOrder === option.queryParams.sortOrder}">{{option.text}}</a>
+               </p>
+            </div>
+         </div>
+         <div class="list-options__filter">
+            <i class="fa-solid fa-filter" (click)="toggleFilterOptions()" #filterOptions></i>
+            <div *ngIf="filterOptionsVisible" class="list-options__filter__options" #filterOptionsContainer>
+               <div class="filter-element">
+                  <label for="departure">Miejsce wylotu</label>
+                  <input type="text" id="departure" [(ngModel)]="departureCityFilter">
+               </div>
+               <div class="filter-element">
+                  <label for="arrival">Miejsce przylotu</label>
+                  <input type="text" id="arrival" [(ngModel)]="arrivalCityFilter">
+               </div>
+               <div class="filter-button">
+                  <button (click)="onFilter()">Filtruj</button>
+               </div>
+            </div>
+         </div>
+      </div>
+      <ul class="list">
+         <li *ngFor="let flight of flights">
+            <app-flight  [flight]="flight" [isAuthenticated]="isAuthenticated"></app-flight>
+         </li>
+      </ul>
+      <p class="pages" *ngIf="totalPagesCount !== 0">
+         <a *ngIf="pageNumber > 1" [routerLink]="['/flights', +pageNumber-1]" class="link"><i class="fa-solid fa-chevron-left"></i></a>
+         Strona {{pageNumber}} z {{totalPagesCount}}
+         <a *ngIf="pageNumber < totalPagesCount-1" [routerLink]="['/flights', +pageNumber+1]" class="link"><i class="fa-solid fa-chevron-right"></i></a>
+      </p>
+   </div>
+   <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+   <p class="server-error" *ngIf="serverError">{{serverError}}</p>
+   <p class="empty-flights" *ngIf="totalPagesCount === 0">Brak lotów spełniających podane kryteria</p>
+</div>
